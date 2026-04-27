@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Maison Aurum"
+version = "1.0.0"
+id = "artifacts/maison-aurum"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18879
+
+[services.development]
+run = "pnpm --filter @workspace/maison-aurum run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/maison-aurum", "run", "build" ]
+publicDir = "artifacts/maison-aurum/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18879"
+BASE_PATH = "/"

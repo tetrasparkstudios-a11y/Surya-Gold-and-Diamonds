@@ -1,0 +1,106 @@
+import { Link } from "wouter";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+export function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Collections", href: "#collections" },
+    { name: "Atelier", href: "#atelier" },
+    { name: "Lookbook", href: "#lookbook" },
+    { name: "Appointments", href: "#contact" },
+  ];
+
+  return (
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+          isScrolled
+            ? "bg-background/90 backdrop-blur-md py-4 shadow-sm"
+            : "bg-transparent py-8"
+        }`}
+      >
+        <div className="container mx-auto px-6 flex items-center justify-between">
+          <Link href="/" className="group flex items-center">
+            <span className="font-serif text-2xl tracking-widest text-foreground group-hover:text-primary transition-colors duration-500 uppercase">
+              MAISON AURUM
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center space-x-12">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm tracking-widest uppercase text-foreground/80 hover:text-primary transition-colors duration-300"
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden text-foreground p-2"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open Menu"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-background flex flex-col"
+          >
+            <div className="flex items-center justify-between p-6 py-8 border-b border-border/50">
+              <span className="font-serif text-2xl tracking-widest uppercase">
+                MAISON AURUM
+              </span>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 text-foreground/80 hover:text-foreground"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <div className="flex-1 flex flex-col items-center justify-center space-y-8">
+              {navLinks.map((link, i) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="font-serif text-3xl tracking-widest uppercase text-foreground hover:text-primary transition-colors"
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

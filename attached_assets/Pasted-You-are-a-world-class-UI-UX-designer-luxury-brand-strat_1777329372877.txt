@@ -1,0 +1,361 @@
+You are a world-class UI/UX designer, luxury brand strategist, and senior full-stack developer.
+
+Your task is to build a COMPLETE, production-ready, ultra-luxury website for a gold and diamond jewelry brand.
+
+This is NOT a generic website. It must feel like a premium brand experience — elegant, minimal, refined, and high-end.
+
+---
+
+##############################
+🎯 PROJECT GOAL
+##############################
+
+Build a fully responsive, visually stunning website that showcases luxury jewelry collections.
+
+The website should feel:
+- Calm
+- Premium
+- Spacious
+- Sophisticated
+- Editorial (like a fashion magazine)
+
+Avoid anything that feels like a cheap e-commerce template.
+
+---
+
+##############################
+🎨 DESIGN SYSTEM
+##############################
+
+COLOR PALETTE:
+- Primary Background: Ivory / Off-white (#F8F5F0)
+- Secondary: Champagne (#F3E9DC)
+- Accent: Soft Gold (#C6A972)
+- Text Primary: Charcoal (#1A1A1A)
+- Text Secondary: Muted Gray (#666)
+
+TYPOGRAPHY:
+- Headings: Elegant Serif (Playfair Display / Cormorant)
+- Body: Modern Sans-serif (Inter / Helvetica / Open Sans)
+
+SPACING:
+- Generous whitespace (luxury brands breathe)
+- Avoid clutter completely
+
+VISUAL STYLE:
+- Soft shadows
+- Thin borders
+- Subtle gold gradients
+- Minimal UI
+
+---
+
+##############################
+⚙️ TECH STACK
+##############################
+
+Use:
+
+- Next.js (App Router)
+- Tailwind CSS
+- Framer Motion (for animations)
+- Optional: GSAP for hero parallax
+- Fully responsive (mobile-first)
+- Optimized images (lazy loading)
+
+Project must be clean, modular, and scalable.
+
+---
+
+##############################
+📁 PROJECT STRUCTURE
+##############################
+
+Create the following structure:
+
+/app
+  /components
+    Navbar.jsx
+    Hero.jsx
+    Collections.jsx
+    ProductCard.jsx
+    ProductPage.jsx
+    About.jsx
+    WhyChooseUs.jsx
+    Gallery.jsx
+    Contact.jsx
+    Footer.jsx
+
+  /data
+    products.js
+    collections.js
+
+  /styles
+    globals.css
+
+  page.jsx
+
+---
+
+##############################
+💎 SECTIONS TO BUILD
+##############################
+
+1. HERO SECTION
+
+- Full-screen cinematic banner
+- Soft zoom/parallax effect
+- Large serif heading
+- Tagline: “Crafted in Gold, Defined by Elegance”
+- CTA Button: “Explore Collection”
+
+Animation:
+- Slow fade-in
+- Subtle zoom on background
+
+---
+
+2. COLLECTIONS SECTION
+
+Categories:
+- Rings
+- Necklaces
+- Earrings
+- Bridal
+- Custom
+
+Layout:
+- Grid (3–5 columns desktop, responsive)
+- Hover effect:
+  - Image zoom
+  - Soft gold overlay glow
+
+---
+
+3. PRODUCT DISPLAY
+
+Each product card:
+- Image
+- Name
+- Price
+- Minimal details
+
+Hover:
+- Glow border
+- Slight elevation
+
+Product Page:
+- Large image gallery with zoom
+- Details:
+  - Gold type
+  - Diamond clarity
+  - Weight
+  - Price
+
+Layout:
+- Clean, editorial style
+- No heavy cart system
+
+---
+
+4. ABOUT US
+
+Luxury storytelling:
+
+Include:
+- Heritage
+- Craftsmanship
+- Trust
+- Artistry
+
+Style:
+- Large typography
+- Image + text split layout
+
+---
+
+5. WHY CHOOSE US
+
+Show 4–5 pillars:
+- Certified Gold
+- Ethical Sourcing
+- Handcrafted Precision
+- Lifetime Service
+
+Use:
+- Icons + minimal text
+- Clean grid
+
+---
+
+6. GALLERY / LOOKBOOK
+
+- Masonry or editorial layout
+- Smooth fade transitions
+- High fashion photography style
+
+---
+
+7. CONTACT SECTION
+
+Include:
+- Address
+- Phone
+- Email
+- Embedded Google Map
+
+Form:
+- Name
+- Email
+- Message
+
+Design:
+- Minimal, elegant inputs
+
+---
+
+8. FOOTER
+
+- Logo placeholder
+- Quick links
+- Social icons
+- Copyright
+
+---
+
+##############################
+✨ ANIMATIONS & INTERACTIONS
+##############################
+
+Use Framer Motion:
+
+- Fade-in on scroll
+- Stagger animations
+- Smooth hover transitions
+
+Luxury Effects:
+- Gold shimmer hover
+- Soft glow borders
+- Smooth scrolling
+
+Avoid:
+- Fast animations
+- Bouncy effects
+
+Everything must feel SLOW, PREMIUM.
+
+---
+
+##############################
+🧠 DATA STRUCTURE
+##############################
+
+Create editable mock data:
+
+products.js:
+- id
+- name
+- price
+- image
+- category
+- description
+- specs (gold type, diamond clarity, weight)
+
+Ensure easy replacement.
+
+---
+
+##############################
+🔧 CUSTOMIZATION SUPPORT
+##############################
+
+Make it EASY to change:
+
+- Brand name
+- Logo
+- Product images
+- Product data
+- Contact info
+
+Add clear comments in code.
+
+---
+
+##############################
+📱 RESPONSIVENESS
+##############################
+
+Must work perfectly on:
+- Mobile
+- Tablet
+- Desktop
+
+Use:
+- Flexible grids
+- Scalable typography
+
+---
+
+##############################
+⚡ PERFORMANCE
+##############################
+
+- Lazy load images
+- Optimize assets
+- Avoid unnecessary libraries
+
+---
+
+##############################
+🚫 AVOID
+##############################
+
+- Loud colors
+- Clutter
+- Cheap animations
+- Overcomplicated UI
+- E-commerce cart system
+
+---
+
+##############################
+🔥 EXTRA (OPTIONAL FEATURES)
+##############################
+
+Prepare placeholders for:
+
+1. Virtual Try-On (future integration)
+2. Appointment Booking
+3. Custom Jewelry Request Form
+
+---
+
+##############################
+📦 OUTPUT REQUIREMENTS
+##############################
+
+- Generate COMPLETE working code
+- Include all components
+- Add comments explaining key parts
+- Ensure project runs immediately
+
+---
+
+##############################
+▶️ RUN INSTRUCTIONS
+##############################
+
+At the end, include:
+
+1. Install dependencies
+2. Run dev server
+3. Build instructions
+
+---
+
+FINAL GOAL:
+
+Create a website that feels like a luxury jewelry brand — not a template.
+
+It should feel like:
+“quiet wealth, elegance, and timeless design”

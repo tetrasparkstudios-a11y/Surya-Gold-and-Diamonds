@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "1QZt0nKUJQE384EEvrrfs"
+uri = "file://artifacts/maison-aurum/public/images/hero.png"
+type = "image"
+title = "Cinematic hero jewelry on velvet"
+
+[[generated]]
+id = "Z9De_qDhmEH6r3-1CuTf3"
+uri = "file://artifacts/maison-aurum/public/images/philosophy.png"
+type = "image"
+title = "Goldsmith hands working"
+
+[[generated]]
+id = "MYfZ_OKYs8NHSN1czqEXR"
+uri = "file://artifacts/maison-aurum/public/images/lookbook-1.png"
+type = "image"
+title = "Editorial fashion shot jewelry"
+
+[[generated]]
+id = "WL7CBqCkjl7566J8k43xb"
+uri = "file://artifacts/maison-aurum/public/images/lookbook-2.png"
+type = "image"
+title = "Editorial portrait jewelry"
+
+[[generated]]
+id = "YHEhX95y2OeYUlcir_8FV"
+uri = "file://artifacts/maison-aurum/public/images/atelier.png"
+type = "image"
+title = "Atelier interior warm light"
+
+[[generated]]
+id = "5SYb2YZSmvgBAgg6FuFmJ"
+uri = "file://artifacts/maison-aurum/public/images/products/solene.png"
+type = "image"
+title = "Solene Solitaire Ring"
+
+[[generated]]
+id = "HCvKJcnTosM3YU5b0VOY9"
+uri = "file://artifacts/maison-aurum/public/images/products/aurelia.png"
+type = "image"
+title = "Aurelia Eternity Band"
+
+[[generated]]
+id = "FDzhRDCUk_YRjMN68yKVl"
+uri = "file://artifacts/maison-aurum/public/images/products/constellation.png"
+type = "image"
+title = "Constellation Drop Earrings"
+
+[[generated]]
+id = "xazkm2RWpXj_OpafLDC8w"
+uri = "file://artifacts/maison-aurum/public/images/products/lumina.png"
+type = "image"
+title = "Lumina Pendant Necklace"
+
+[[generated]]
+id = "eHi4ALoZhM6-OaqTNCJZf"
+uri = "file://artifacts/maison-aurum/public/images/collections/bridal.png"
+type = "image"
+title = "Collection Bridal"
