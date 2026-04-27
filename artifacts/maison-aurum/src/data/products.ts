@@ -21,7 +21,7 @@ export const products: Product[] = [
     karat: "18k Yellow Gold",
     clarity: "VVS1",
     carat: "2.10ct",
-    price: 18500,
+    price: 1850000,
     description: "A breathtaking brilliant-cut diamond suspended in our signature Cathedral setting. The Solene Solitaire allows light to enter from all angles, maximizing its natural fire.",
     image: "/images/products/solene.png",
     craftsmanship: "Hand-forged setting. 40 hours of master craftsmanship."
@@ -33,7 +33,7 @@ export const products: Product[] = [
     karat: "Platinum",
     clarity: "VS1",
     carat: "3.50ct tw",
-    price: 8200,
+    price: 820000,
     description: "An unbroken circle of exceptional emerald-cut diamonds. The Aurelia is designed to sit perfectly flush against an engagement ring or to be worn as a statement piece on its own.",
     image: "/images/products/aurelia.png",
     craftsmanship: "Individually matched and set diamonds for seamless continuity."
@@ -45,7 +45,7 @@ export const products: Product[] = [
     karat: "18k White Gold",
     clarity: "VVS2",
     carat: "1.80ct tw",
-    price: 6400,
+    price: 640000,
     description: "Inspired by the night sky, these delicate drop earrings feature graduated diamonds that cascade elegantly, catching the light with every movement.",
     image: "/images/products/constellation.png",
     craftsmanship: "Articulated joints for fluid movement. Hand-polished finish."
@@ -57,7 +57,7 @@ export const products: Product[] = [
     karat: "22k Yellow Gold",
     clarity: "VVS1",
     carat: "1.20ct",
-    price: 4800,
+    price: 480000,
     description: "A singular, extraordinary diamond held by four whisper-thin prongs on a delicate 22k gold chain. The epitome of quiet, daily luxury.",
     image: "/images/products/lumina.png",
     craftsmanship: "Custom-drawn wire chain. Micro-pavé detailing on the clasp."

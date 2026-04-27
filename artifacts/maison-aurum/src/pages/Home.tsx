@@ -1,13 +1,14 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { products } from "@/data/products";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { FaWhatsapp } from "react-icons/fa";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } }
 };
 
 const staggerContainer = {
@@ -15,10 +16,55 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
+      staggerChildren: 0.15
     }
   }
 };
+
+function CursorGlow() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Only show on desktop
+    if (window.matchMedia("(hover: none)").matches) return;
+
+    const updateMousePosition = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!isVisible) setIsVisible(true);
+    };
+    
+    const handleMouseLeave = () => setIsVisible(false);
+
+    window.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("mousemove", updateMousePosition);
+      window.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [isVisible]);
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="fixed pointer-events-none z-0 w-[600px] h-[600px] rounded-full"
+          style={{
+            left: mousePosition.x - 300,
+            top: mousePosition.y - 300,
+            background: "radial-gradient(circle, rgba(212, 163, 42, 0.04) 0%, rgba(212, 163, 42, 0) 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+      )}
+    </AnimatePresence>
+  );
+}
 
 export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
@@ -32,99 +78,140 @@ export default function Home() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(price);
+  };
+
   return (
-    <div className="min-h-screen bg-background w-full overflow-x-hidden">
+    <div className="min-h-screen bg-background w-full overflow-x-hidden relative">
+      <CursorGlow />
       <Navbar />
 
+      {/* Floating WhatsApp Button */}
+      <a 
+        href="https://wa.me/917093335656?text=Hello%20Surya%20Gold%20%26%20Diamonds%2C%20I%27d%20like%20to%20enquire%20about%20a%20piece."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 bg-primary text-primary-foreground p-4 md:p-5 rounded-full shadow-[0_10px_40px_rgba(212,163,42,0.3)] hover:scale-110 transition-transform duration-500 pulse-ring"
+        aria-label="Contact on WhatsApp"
+      >
+        <FaWhatsapp className="w-6 h-6 md:w-8 md:h-8" />
+      </a>
+
       {/* 1. HERO SECTION */}
-      <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-foreground">
+      <section ref={heroRef} className="relative h-[90svh] md:h-screen w-full flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-16 overflow-hidden bg-foreground">
         <motion.div 
           style={{ y: heroY, opacity: heroOpacity }}
           className="absolute inset-0 z-0"
         >
           <img 
             src="/images/hero.png" 
-            alt="Maison Aurum Hero" 
-            className="w-full h-full object-cover opacity-70"
+            alt="Surya Gold & Diamonds Heritage" 
+            className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-foreground/20 to-background"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/40 to-transparent"></div>
         </motion.div>
         
-        <div className="relative z-10 text-center px-6 mt-20">
+        <div className="relative z-10 max-w-4xl">
           <motion.p 
             initial={{ opacity: 0, tracking: "0em" }}
             animate={{ opacity: 1, tracking: "0.2em" }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-            className="text-primary text-sm uppercase tracking-widest mb-6 font-light"
+            transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+            className="text-primary text-xs md:text-sm uppercase tracking-widest mb-6 font-light"
           >
-            The Art of Forever
+            Since 1985 • Hyderabad
           </motion.p>
           <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl text-background font-medium tracking-wide"
+            transition={{ duration: 1.4, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="font-serif text-5xl md:text-7xl lg:text-8xl text-background font-medium tracking-wide leading-[1.1]"
           >
-            MAISON AURUM
+            Where Gold <br className="hidden md:block" /> Becomes Legacy.
           </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
+            className="mt-12"
+          >
+            <a href="#collections" className="inline-block border-b border-primary text-primary pb-1 uppercase tracking-widest text-xs hover:text-background hover:border-background transition-colors duration-700">
+              Discover Collections
+            </a>
+          </motion.div>
         </div>
       </section>
 
-      {/* 2. PHILOSOPHY / STORY */}
-      <section id="atelier" className="py-32 px-6 md:py-48 bg-background">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* 2. PHILOSOPHY / STORY (Editorial Asymmetry) */}
+      <section id="atelier" className="py-24 md:py-40 bg-background relative z-10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-center">
+            
             <motion.div 
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              variants={fadeInUp}
-              className="max-w-xl"
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-5 lg:col-start-2 order-2 lg:order-1"
             >
-              <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-8 leading-tight">
-                Quiet luxury, <br/><span className="italic text-foreground/70">crafted in shadow.</span>
+              <p className="text-primary text-xs uppercase tracking-widest mb-8">Our Heritage</p>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-10 leading-[1.2]">
+                Quiet confidence, <br/><span className="italic text-foreground/70">generations of trust.</span>
               </h2>
-              <div className="space-y-6 text-foreground/80 font-light leading-relaxed">
+              <div className="space-y-6 text-foreground/80 font-light leading-relaxed text-sm md:text-base">
                 <p>
-                  At Maison Aurum, we believe the most profound objects whisper, they do not shout. Our atelier in Rome operates on the ancient rhythms of master goldsmiths, dedicating hundreds of hours to a single curve of metal.
+                  At Surya Gold & Diamonds, we believe true luxury whispers. Our family has served the finest households of Hyderabad for decades, operating on the ancient rhythms of master goldsmiths.
                 </p>
                 <p>
-                  Every piece is a dialogue between raw, natural brilliance and human intentionality. We don't just set diamonds; we frame light.
+                  Every piece is a dialogue between raw, natural brilliance and human intentionality. From bridal trousseaus to everyday elegance, we don't just craft jewelry; we forge heirlooms.
                 </p>
               </div>
               <div className="mt-12">
-                <a href="#contact" className="inline-block border-b border-primary text-primary pb-1 uppercase tracking-widest text-xs hover:text-foreground hover:border-foreground transition-colors duration-500">
-                  Discover Our Heritage
+                <a href="#contact" className="cta-shimmer inline-block bg-foreground text-background px-10 py-4 uppercase tracking-widest text-xs hover:bg-primary transition-colors duration-700">
+                  Book a Viewing
                 </a>
               </div>
             </motion.div>
-            
+
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.5 }}
-              className="relative aspect-[4/5] w-full"
+              transition={{ duration: 1.8, ease: "easeOut" }}
+              className="lg:col-span-5 relative aspect-[3/4] w-full order-1 lg:order-2 mt-0 lg:mt-24"
             >
-              <img src="/images/philosophy.png" alt="Goldsmith at work" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(253,251,247,0.2)] pointer-events-none"></div>
+              <img src="/images/philosophy.png" alt="Master Craftsmanship" className="w-full h-full object-cover" />
+              <div className="absolute -right-4 -bottom-4 md:-right-8 md:-bottom-8 w-2/3 aspect-square bg-secondary -z-10"></div>
+              <p className="absolute -left-6 top-1/2 -rotate-90 origin-center text-[10px] tracking-[0.3em] uppercase text-foreground/50 hidden md:block">
+                BIS Hallmark Certified
+              </p>
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* 3. FEATURED PIECES (Interactive Showcase) */}
-      <section id="collections" className="py-24 bg-secondary">
+      {/* 3. FEATURED PIECES */}
+      <section id="collections" className="py-32 bg-secondary relative z-10">
         <div className="container mx-auto px-6">
           <motion.div 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
-            className="text-center max-w-2xl mx-auto mb-20"
+            className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6"
           >
-            <h2 className="font-serif text-4xl mb-4">Curated Masterpieces</h2>
-            <p className="text-foreground/60 font-light">An intimately selected presentation of our most sought-after works.</p>
+            <div className="max-w-xl">
+              <h2 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">Curated Masterpieces</h2>
+              <p className="text-foreground/60 font-light leading-relaxed">An intimately selected presentation of our most sought-after works, embodying the pinnacle of Indian craftsmanship.</p>
+            </div>
+            <a href="#lookbook" className="border-b border-foreground text-foreground pb-1 uppercase tracking-widest text-xs hover:text-primary hover:border-primary transition-colors duration-500 shrink-0">
+              View Full Collection
+            </a>
           </motion.div>
 
           <motion.div 
@@ -132,26 +219,30 @@ export default function Home() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12"
           >
             {products.map((product) => (
               <motion.div 
                 key={product.id}
                 variants={fadeInUp}
-                className="group cursor-pointer"
+                className="group cursor-pointer flex flex-col"
                 onClick={() => setSelectedProduct(product)}
               >
-                <div className="relative aspect-square mb-6 overflow-hidden bg-background">
-                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-500 z-10"></div>
+                <div className="relative aspect-[4/5] mb-6 overflow-hidden bg-background">
+                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-700 z-10"></div>
                   <img 
                     src={product.image} 
                     alt={product.name} 
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
                   />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex justify-between items-end">
+                    <span className="text-xs uppercase tracking-widest font-medium text-foreground">View</span>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="text-xs uppercase tracking-widest text-primary mb-2">{product.category}</p>
-                  <h3 className="font-serif text-xl mb-1 group-hover:text-primary transition-colors duration-300">{product.name}</h3>
+                <div className="mt-auto">
+                  <p className="text-[10px] uppercase tracking-widest text-primary mb-2">{product.category}</p>
+                  <h3 className="font-serif text-xl md:text-2xl mb-1 group-hover:text-primary transition-colors duration-500">{product.name}</h3>
+                  <p className="text-sm text-foreground/60 font-light mt-2">{formatPrice(product.price)}</p>
                 </div>
               </motion.div>
             ))}
@@ -160,101 +251,147 @@ export default function Home() {
       </section>
 
       {/* 4. TRUST PILLARS */}
-      <section className="py-32 px-6 border-y border-border">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+      <section className="py-24 md:py-32 px-6 bg-background relative z-10 border-b border-border/50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 text-center">
             {[
-              { title: "Ethical Sourcing", desc: "Every diamond is conflict-free, traced from origin to our atelier." },
-              { title: "Master Craftsmanship", desc: "Forged by artisans with decades of inherited knowledge." },
-              { title: "Lifetime Service", desc: "Our commitment to your piece extends far beyond the day it leaves our salon." }
+              { title: "BIS Hallmarked", desc: "Every piece of gold carries the official government hallmark of purity, ensuring absolute trust." },
+              { title: "Certified Diamonds", desc: "Flawless solitaires and precious stones, rigorously certified by leading gemological institutes." },
+              { title: "Lifetime Service", desc: "Our relationship begins, not ends, with your purchase. Complimentary cleaning and lifelong care." }
             ].map((pillar, i) => (
               <motion.div 
                 key={i}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
                 variants={fadeInUp}
-                className="space-y-4"
+                className="space-y-5"
               >
-                <h3 className="font-serif text-2xl">{pillar.title}</h3>
-                <p className="text-foreground/60 font-light text-sm max-w-xs mx-auto">{pillar.desc}</p>
+                <div className="w-12 h-12 mx-auto border border-primary/30 flex items-center justify-center rounded-full text-primary mb-6">
+                  <span className="font-serif text-xl italic">{i+1}</span>
+                </div>
+                <h3 className="font-serif text-2xl md:text-3xl">{pillar.title}</h3>
+                <p className="text-foreground/60 font-light text-sm max-w-xs mx-auto leading-relaxed">{pillar.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. LOOKBOOK */}
-      <section id="lookbook" className="py-32 bg-background overflow-hidden">
-        <div className="container mx-auto px-6 mb-16 text-center">
-          <h2 className="font-serif text-4xl">The Lookbook</h2>
-        </div>
-        
-        <div className="flex w-full gap-4 px-4 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar">
-          {[1, 2, 3].map((num) => (
+      {/* 5. EDITORIAL LOOKBOOK */}
+      <section id="lookbook" className="py-32 md:py-48 bg-background relative z-10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
             <motion.div 
-              key={num}
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: num * 0.1 }}
-              className="relative min-w-[80vw] md:min-w-[40vw] lg:min-w-[30vw] aspect-[3/4] snap-center flex-shrink-0"
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="lg:col-span-7 relative aspect-[16/9] md:aspect-video w-full"
             >
-              <img 
-                src={`/images/lookbook-${num}.png`} 
-                alt={`Lookbook ${num}`} 
-                className="w-full h-full object-cover"
-              />
+              <img src="/images/lookbook-1.png" alt="Bridal Collection" className="w-full h-full object-cover" />
             </motion.div>
-          ))}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+              className="lg:col-span-4 lg:col-start-9"
+            >
+              <h2 className="font-serif text-4xl md:text-5xl mb-6">The Bridal <br/><span className="italic text-primary">Trousseau</span></h2>
+              <p className="text-foreground/60 font-light leading-relaxed mb-8">
+                Weighty, intricate, and deeply rooted in tradition. Our bridal pieces are designed to be the centerpiece of the most important day of your life, capturing the essence of Indian grandeur with refined restraint.
+              </p>
+              <a href="#contact" className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors flex items-center gap-4">
+                <span className="w-8 h-[1px] bg-foreground"></span> Explore Trousseau
+              </a>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="lg:col-span-4 lg:col-start-2 order-2 lg:order-1"
+            >
+              <h2 className="font-serif text-4xl md:text-5xl mb-6">Everyday <br/><span className="italic text-primary">Brilliance</span></h2>
+              <p className="text-foreground/60 font-light leading-relaxed mb-8">
+                For the moments between the milestones. Delicate diamond settings and minimalist gold forms that elevate the everyday into something extraordinary.
+              </p>
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+              className="lg:col-span-6 lg:col-start-7 relative aspect-[4/5] w-full order-1 lg:order-2"
+            >
+              <img src="/images/lookbook-2.png" alt="Everyday Collection" className="w-full h-full object-cover" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* 6. CONTACT / APPOINTMENT */}
-      <section id="contact" className="py-32 px-6 bg-foreground text-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <p className="text-primary text-sm uppercase tracking-widest mb-6">Private Viewing</p>
-            <h2 className="font-serif text-4xl md:text-6xl mb-8">Request an Appointment</h2>
-            <p className="text-background/60 font-light max-w-xl mx-auto mb-12">
-              We welcome you to our Rome atelier for a private consultation. Experience the weight, warmth, and brilliance of our pieces in person.
-            </p>
+      <section id="contact" className="py-24 md:py-40 px-6 bg-foreground text-background relative z-10">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             
-            <form className="max-w-md mx-auto space-y-6 text-left" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <input 
-                  type="text" 
-                  placeholder="Your Name" 
-                  className="w-full bg-transparent border-b border-background/30 pb-3 text-background focus:outline-none focus:border-primary transition-colors font-light placeholder:text-background/40"
-                />
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="max-w-xl"
+            >
+              <p className="text-primary text-xs uppercase tracking-widest mb-6">Private Viewing</p>
+              <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-[1.1]">Request an Appointment</h2>
+              <p className="text-background/60 font-light mb-12 text-lg leading-relaxed">
+                We welcome you to our Hyderabad showroom for a private consultation. Experience the weight, warmth, and brilliance of our pieces in person.
+              </p>
+              
+              <div className="space-y-8 mb-12">
+                <div>
+                  <h4 className="text-xs uppercase tracking-widest text-background/40 mb-2">Visit Us</h4>
+                  <p className="font-light text-background/90 leading-relaxed">
+                    Flat No. 103, My Adobe The Sirius,<br/>
+                    Suryodaya Colony, Bandlaguda,<br/>
+                    Ranga Reddy (D), Telangana, India
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-xs uppercase tracking-widest text-background/40 mb-2">Direct Inquiry</h4>
+                  <p className="font-light text-background/90 space-y-1">
+                    <a href="tel:+917093335656" className="block hover:text-primary transition-colors">+91 70933 35656</a>
+                    <a href="tel:+919490032898" className="block hover:text-primary transition-colors">+91 94900 32898</a>
+                    <a href="mailto:suryagold2024@gmail.com" className="block hover:text-primary transition-colors mt-2">suryagold2024@gmail.com</a>
+                  </p>
+                </div>
               </div>
-              <div>
-                <input 
-                  type="email" 
-                  placeholder="Email Address" 
-                  className="w-full bg-transparent border-b border-background/30 pb-3 text-background focus:outline-none focus:border-primary transition-colors font-light placeholder:text-background/40"
-                />
-              </div>
-              <div>
-                <select className="w-full bg-transparent border-b border-background/30 pb-3 text-background focus:outline-none focus:border-primary transition-colors font-light appearance-none rounded-none cursor-pointer">
-                  <option value="" className="bg-foreground text-background/40">Nature of Inquiry</option>
-                  <option value="bridal" className="bg-foreground">Bridal Collection</option>
-                  <option value="custom" className="bg-foreground">Custom Commission</option>
-                  <option value="general" className="bg-foreground">General Viewing</option>
-                </select>
-              </div>
-              <div className="pt-8 text-center">
-                <button className="bg-background text-foreground px-12 py-4 uppercase tracking-widest text-xs font-medium hover:bg-primary hover:text-background transition-colors duration-500 w-full md:w-auto">
-                  Submit Request
-                </button>
-              </div>
-            </form>
-          </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.3 }}
+              className="w-full h-[400px] lg:h-full min-h-[500px] grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
+            >
+              <iframe 
+                src="https://www.google.com/maps?q=Bandlaguda+Ranga+Reddy+Telangana&output=embed" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full object-cover"
+              ></iframe>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
@@ -262,64 +399,74 @@ export default function Home() {
 
       {/* Product Detail Modal */}
       <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
-        <DialogContent className="max-w-4xl p-0 border-none bg-background rounded-none overflow-hidden">
+        <DialogContent className="max-w-5xl p-0 border-none bg-background rounded-none overflow-hidden">
           {selectedProduct && (
-            <div className="flex flex-col md:flex-row h-[80vh] md:h-[600px]">
-              <div className="w-full md:w-1/2 relative bg-secondary">
+            <div className="flex flex-col lg:flex-row h-[85vh] lg:h-[700px]">
+              <div className="w-full lg:w-1/2 relative bg-secondary order-1 h-64 lg:h-full shrink-0">
                 <img 
                   src={selectedProduct.image} 
                   alt={selectedProduct.name} 
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="w-full md:w-1/2 p-10 flex flex-col justify-center overflow-y-auto">
-                <p className="text-primary text-xs uppercase tracking-widest mb-4">{selectedProduct.category}</p>
-                <DialogTitle className="font-serif text-3xl mb-2">{selectedProduct.name}</DialogTitle>
-                <p className="text-xl font-serif text-foreground/80 mb-6">
-                  {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(selectedProduct.price)}
+              <div className="w-full lg:w-1/2 p-8 lg:p-14 flex flex-col justify-center overflow-y-auto order-2 hide-scrollbar">
+                <p className="text-primary text-[10px] md:text-xs uppercase tracking-widest mb-4">{selectedProduct.category}</p>
+                <DialogTitle className="font-serif text-3xl lg:text-4xl mb-3">{selectedProduct.name}</DialogTitle>
+                <p className="text-xl lg:text-2xl font-serif text-foreground/80 mb-8">
+                  {formatPrice(selectedProduct.price)}
                 </p>
                 
-                <div className="space-y-6 flex-1">
+                <div className="space-y-8 flex-1">
                   <p className="text-sm font-light leading-relaxed text-foreground/80">
                     {selectedProduct.description}
                   </p>
                   
-                  <div className="pt-6 border-t border-border">
-                    <dl className="grid grid-cols-2 gap-y-4 text-sm">
-                      <dt className="text-foreground/50 uppercase tracking-wider text-xs">Material</dt>
-                      <dd className="font-medium text-right md:text-left">{selectedProduct.karat}</dd>
+                  <div className="pt-8 border-t border-border/50">
+                    <dl className="grid grid-cols-2 gap-y-6 text-sm">
+                      <dt className="text-foreground/50 uppercase tracking-wider text-[10px] md:text-xs">Material</dt>
+                      <dd className="font-medium text-right lg:text-left">{selectedProduct.karat}</dd>
                       
                       {selectedProduct.clarity && (
                         <>
-                          <dt className="text-foreground/50 uppercase tracking-wider text-xs">Clarity</dt>
-                          <dd className="font-medium text-right md:text-left">{selectedProduct.clarity}</dd>
+                          <dt className="text-foreground/50 uppercase tracking-wider text-[10px] md:text-xs">Clarity</dt>
+                          <dd className="font-medium text-right lg:text-left">{selectedProduct.clarity}</dd>
                         </>
                       )}
                       
                       {selectedProduct.carat && (
                         <>
-                          <dt className="text-foreground/50 uppercase tracking-wider text-xs">Carat Weight</dt>
-                          <dd className="font-medium text-right md:text-left">{selectedProduct.carat}</dd>
+                          <dt className="text-foreground/50 uppercase tracking-wider text-[10px] md:text-xs">Carat Weight</dt>
+                          <dd className="font-medium text-right lg:text-left">{selectedProduct.carat}</dd>
                         </>
                       )}
                     </dl>
                   </div>
                   
-                  <div className="bg-secondary p-4 mt-6">
-                    <p className="text-xs uppercase tracking-widest text-primary mb-2">Atelier Notes</p>
-                    <p className="text-sm font-serif italic text-foreground/80">{selectedProduct.craftsmanship}</p>
+                  <div className="bg-secondary/50 p-6 mt-8">
+                    <p className="text-[10px] uppercase tracking-widest text-primary mb-3">Atelier Notes</p>
+                    <p className="text-sm font-serif italic text-foreground/80 leading-relaxed">{selectedProduct.craftsmanship}</p>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6">
+                <div className="mt-10 pt-6 flex flex-col sm:flex-row gap-4">
+                  <a 
+                    href={`https://wa.me/917093335656?text=I'm%20interested%20in%20the%20${encodeURIComponent(selectedProduct.name)}.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cta-shimmer flex-1 bg-foreground text-background py-4 uppercase tracking-widest text-xs text-center hover:bg-primary transition-colors duration-700"
+                  >
+                    Inquire on WhatsApp
+                  </a>
                   <button 
                     onClick={() => {
                       setSelectedProduct(null);
-                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      setTimeout(() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
                     }}
-                    className="w-full border border-foreground text-foreground py-4 uppercase tracking-widest text-xs hover:bg-foreground hover:text-background transition-colors duration-300"
+                    className="flex-1 border border-foreground text-foreground py-4 uppercase tracking-widest text-xs hover:bg-foreground/5 transition-colors duration-700"
                   >
-                    Inquire About Piece
+                    Book Viewing
                   </button>
                 </div>
               </div>
