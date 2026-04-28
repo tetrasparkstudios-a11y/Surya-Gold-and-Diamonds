@@ -60,3 +60,9 @@ id = "eHi4ALoZhM6-OaqTNCJZf"
 uri = "file://artifacts/maison-aurum/public/images/collections/bridal.png"
 type = "image"
 title = "Collection Bridal"
+
+[[generated]]
+id = "t-bdwfmTZP4BPbCzjhp5S"
+uri = "file://artifacts/maison-aurum/public/images/mmtc-bar.png"
+type = "image"
+title = "Close up gold bar MMTC"

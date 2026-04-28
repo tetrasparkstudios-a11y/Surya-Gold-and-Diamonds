@@ -23,10 +23,10 @@ export function Footer() {
           <div>
             <h3 className="font-serif text-lg tracking-widest uppercase mb-6 text-primary">Explore</h3>
             <ul className="space-y-4 text-sm tracking-wider text-background/60">
-              <li><a href="#collections" className="hover:text-primary transition-colors">Collections</a></li>
-              <li><a href="#atelier" className="hover:text-primary transition-colors">The Heritage</a></li>
-              <li><a href="#lookbook" className="hover:text-primary transition-colors">Lookbook</a></li>
-              <li><a href="#contact" className="hover:text-primary transition-colors">Private Viewing</a></li>
+              <li><a href="/#collections" className="hover:text-primary transition-colors">Collections</a></li>
+              <li><a href="/#atelier" className="hover:text-primary transition-colors">The Heritage</a></li>
+              <li><a href="/#lookbook" className="hover:text-primary transition-colors">Lookbook</a></li>
+              <li><a href="/contact" className="hover:text-primary transition-colors">Private Viewing</a></li>
             </ul>
           </div>
           

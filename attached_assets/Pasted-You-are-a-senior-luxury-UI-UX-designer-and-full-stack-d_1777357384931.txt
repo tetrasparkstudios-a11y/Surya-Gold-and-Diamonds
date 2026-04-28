@@ -1,0 +1,280 @@
+You are a senior luxury UI/UX designer and full-stack developer.
+
+The website is already built for SURYA GOLD & DIAMONDS.
+
+DO NOT rebuild from scratch.
+ONLY refine, enhance, and extend the existing project.
+
+---
+
+##############################
+🎯 PRIMARY OBJECTIVE
+##############################
+
+Upgrade the existing website into a more premium, smooth, and refined luxury experience.
+
+Focus on:
+- Subtle animations
+- Clean storytelling
+- Editorial layout
+- Brand credibility
+
+---
+
+##############################
+🚫 IMPORTANT CHANGES
+##############################
+
+1. REMOVE ALL PRODUCT PRICING
+2. REMOVE WEIGHT / COST DETAILS
+
+This is NOT an e-commerce store.
+It is a luxury showcase.
+
+Replace with:
+- “Available upon inquiry”
+- “Price on request”
+
+---
+
+##############################
+✨ ANIMATION REFINEMENT (GLOBAL)
+##############################
+
+Add smooth, slow animations using Framer Motion:
+
+For all sections:
+- opacity: 0 → 1
+- y: 40 → 0
+- duration: 0.8–1s
+- ease: easeOut
+
+Add stagger for children elements.
+
+Hover interactions:
+- image scale: 1 → 1.04
+- soft shadow increase
+- subtle gold glow
+
+Avoid fast or flashy animations.
+
+---
+
+##############################
+💎 NEW SECTION: MMTC-PAMP PARTNERSHIP
+##############################
+
+Add a premium section BEFORE collections.
+
+Layout:
+- Left: text
+- Right: MMTC-PAMP gold visual / logo
+
+Content:
+
+Heading:
+“Trusted Partnership with MMTC-PAMP”
+
+Subtext:
+“We are proud partners of MMTC-PAMP, India’s most trusted name in gold refining and purity. This collaboration reflects our commitment to authenticity, transparency, and global standards.”
+
+Add:
+- Soft gold divider line
+- Minimal spacing
+- Fade-in animation
+
+---
+
+##############################
+🖼 NEW SECTION: LOOKBOOK
+##############################
+
+Add a dedicated Lookbook section.
+
+Layout:
+- Masonry / editorial grid
+- No borders
+- High-end photography feel
+
+Images:
+- Lifestyle shots
+- Close-up jewelry shots
+
+Hover:
+- slight zoom
+- soft overlay fade
+
+Add heading:
+“Lookbook”
+
+Subtext:
+“A glimpse into timeless elegance.”
+
+---
+
+##############################
+📞 NEW PAGE: CONTACT (PREMIUM STYLE)
+##############################
+
+Create a separate Contact page.
+
+Design inspired by reference:
+
+Layout:
+LEFT:
+- Heading:
+  “Request a Private Consultation”
+
+- Subtext:
+  Invite users to visit showroom
+
+- Contact details:
+  Phone
+  Email
+  Address
+
+RIGHT:
+- Minimal form:
+  - Name
+  - City
+  - Phone
+  - Email (optional)
+  - Message
+
+Design:
+- Soft rounded card
+- Light background
+- Thin borders
+- Clean spacing
+
+Button:
+- “Submit Inquiry”
+
+Add smooth fade animation.
+
+---
+
+##############################
+📦 PRODUCT EXPERIENCE UPDATE
+##############################
+
+Product cards:
+- Keep minimal
+- Remove price
+
+Product modal:
+- Show:
+  - Name
+  - Description
+  - Material
+  - Craft details
+
+CTA:
+- “Inquire via WhatsApp →”
+- “Book a Private Viewing →”
+
+---
+
+##############################
+🧠 ADMIN PANEL (IMPORTANT)
+##############################
+
+Create an admin-only dashboard.
+
+Route:
+- /admin
+
+Access:
+- simple login (hardcoded for now)
+
+Features:
+
+1. Add Product
+2. Edit Product
+3. Delete Product
+
+Fields:
+- Name
+- Category
+- Image URL
+- Description
+- Material
+- Tags
+
+Store data:
+- JSON or local storage (simple implementation)
+
+Ensure:
+- Changes reflect on main website
+
+---
+
+##############################
+💼 UX ENHANCEMENTS
+##############################
+
+Add:
+
+1. WhatsApp button (refined)
+- smaller
+- softer gold
+
+2. Section dividers
+- thin gold lines
+
+3. More whitespace between sections
+
+4. Slight asymmetry in layout
+
+---
+
+##############################
+🎨 DESIGN CONSISTENCY
+##############################
+
+Maintain:
+- Ivory / champagne background
+- Gold accents
+- Serif + sans-serif typography
+
+Avoid:
+- Bright yellow
+- Heavy shadows
+- Clutter
+
+---
+
+##############################
+⚡ PERFORMANCE
+##############################
+
+- Lazy load images
+- Optimize assets
+- Keep animations lightweight
+
+---
+
+##############################
+📦 OUTPUT
+##############################
+
+- Update existing components
+- Add new components:
+  - MMTCSection
+  - Lookbook
+  - ContactPage
+  - AdminPanel
+
+- Clean code
+- Comment key sections
+
+---
+
+FINAL GOAL:
+
+The website should feel like a refined luxury brand experience — calm, premium, and trustworthy.
+
+NOT a shopping website.
+NOT a template.
+
+A digital showroom.

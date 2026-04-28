@@ -2,13 +2,14 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { products } from "@/data/products";
+import { useProducts, Product } from "@/lib/productStore";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { FaWhatsapp } from "react-icons/fa";
+import { MMTCSection } from "@/components/sections/MMTCSection";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } }
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } }
 };
 
 const staggerContainer = {
@@ -16,7 +17,7 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15
+      staggerChildren: 0.12
     }
   }
 };
@@ -67,7 +68,8 @@ function CursorGlow() {
 }
 
 export default function Home() {
-  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+  const products = useProducts();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   // Hero Parallax
   const heroRef = useRef(null);
@@ -77,14 +79,6 @@ export default function Home() {
   });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(price);
-  };
 
   return (
     <div className="min-h-screen bg-background w-full overflow-x-hidden relative">
@@ -96,10 +90,10 @@ export default function Home() {
         href="https://wa.me/917093335656?text=Hello%20Surya%20Gold%20%26%20Diamonds%2C%20I%27d%20like%20to%20enquire%20about%20a%20piece."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 bg-primary text-primary-foreground p-4 md:p-5 rounded-full shadow-[0_10px_40px_rgba(212,163,42,0.3)] hover:scale-110 transition-transform duration-500 pulse-ring"
+        className="fixed bottom-6 right-6 z-50 bg-[#d4af37] text-primary-foreground p-3 md:p-3.5 rounded-full shadow-[0_4px_20px_rgba(212,163,42,0.2)] hover:scale-105 transition-transform duration-500 pulse-ring w-12 h-12 flex items-center justify-center"
         aria-label="Contact on WhatsApp"
       >
-        <FaWhatsapp className="w-6 h-6 md:w-8 md:h-8" />
+        <FaWhatsapp className="w-5 h-5 md:w-6 md:h-6" />
       </a>
 
       {/* 1. HERO SECTION */}
@@ -147,15 +141,15 @@ export default function Home() {
       </section>
 
       {/* 2. PHILOSOPHY / STORY (Editorial Asymmetry) */}
-      <section id="atelier" className="py-24 md:py-40 bg-background relative z-10">
+      <section id="atelier" className="py-32 md:py-40 bg-background relative z-10">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-center">
             
             <motion.div 
-              initial={{ opacity: 0, y: 60 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-5 lg:col-start-2 order-2 lg:order-1"
             >
               <p className="text-primary text-xs uppercase tracking-widest mb-8">Our Heritage</p>
@@ -171,20 +165,21 @@ export default function Home() {
                 </p>
               </div>
               <div className="mt-12">
-                <a href="#contact" className="cta-shimmer inline-block bg-foreground text-background px-10 py-4 uppercase tracking-widest text-xs hover:bg-primary transition-colors duration-700">
+                <a href="/contact" className="cta-shimmer inline-block bg-foreground text-background px-10 py-4 uppercase tracking-widest text-xs hover:bg-primary transition-colors duration-700">
                   Book a Viewing
                 </a>
               </div>
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.8, ease: "easeOut" }}
-              className="lg:col-span-5 relative aspect-[3/4] w-full order-1 lg:order-2 mt-0 lg:mt-24"
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-5 relative aspect-[3/4] w-full order-1 lg:order-2 mt-0 lg:mt-24 group overflow-hidden"
             >
-              <img src="/images/philosophy.png" alt="Master Craftsmanship" className="w-full h-full object-cover" />
+              <img src="/images/philosophy.png" alt="Master Craftsmanship" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-primary/10 group-hover:ring-primary/30 group-hover:shadow-[0_0_30px_rgba(212,163,42,0.15)] transition-all duration-700 pointer-events-none"></div>
               <div className="absolute -right-4 -bottom-4 md:-right-8 md:-bottom-8 w-2/3 aspect-square bg-secondary -z-10"></div>
               <p className="absolute -left-6 top-1/2 -rotate-90 origin-center text-[10px] tracking-[0.3em] uppercase text-foreground/50 hidden md:block">
                 BIS Hallmark Certified
@@ -194,6 +189,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <MMTCSection />
 
       {/* 3. FEATURED PIECES */}
       <section id="collections" className="py-32 bg-secondary relative z-10">
@@ -233,8 +230,11 @@ export default function Home() {
                   <img 
                     src={product.image} 
                     alt={product.name} 
-                    className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
                   />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-primary/0 group-hover:ring-primary/20 group-hover:shadow-[0_0_20px_rgba(212,163,42,0.1)] transition-all duration-700 pointer-events-none z-10"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex justify-between items-end">
                     <span className="text-xs uppercase tracking-widest font-medium text-foreground">View</span>
                   </div>
@@ -242,7 +242,7 @@ export default function Home() {
                 <div className="mt-auto">
                   <p className="text-[10px] uppercase tracking-widest text-primary mb-2">{product.category}</p>
                   <h3 className="font-serif text-xl md:text-2xl mb-1 group-hover:text-primary transition-colors duration-500">{product.name}</h3>
-                  <p className="text-sm text-foreground/60 font-light mt-2">{formatPrice(product.price)}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-primary font-medium mt-2">Available upon inquiry</p>
                 </div>
               </motion.div>
             ))}
@@ -280,29 +280,31 @@ export default function Home() {
 
       {/* 5. EDITORIAL LOOKBOOK */}
       <section id="lookbook" className="py-32 md:py-48 bg-background relative z-10">
+        <div className="w-[70%] mx-auto h-px bg-primary/20 absolute top-0 left-0 right-0"></div>
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="lg:col-span-7 relative aspect-[16/9] md:aspect-video w-full"
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-7 relative aspect-[16/9] md:aspect-video w-full group overflow-hidden"
             >
-              <img src="/images/lookbook-1.png" alt="Bridal Collection" className="w-full h-full object-cover" />
+              <img src="/images/lookbook-1.png" alt="Bridal Collection" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-primary/10 group-hover:ring-primary/30 group-hover:shadow-[0_0_30px_rgba(212,163,42,0.15)] transition-all duration-700 pointer-events-none"></div>
             </motion.div>
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-4 lg:col-start-9"
             >
               <h2 className="font-serif text-4xl md:text-5xl mb-6">The Bridal <br/><span className="italic text-primary">Trousseau</span></h2>
               <p className="text-foreground/60 font-light leading-relaxed mb-8">
                 Weighty, intricate, and deeply rooted in tradition. Our bridal pieces are designed to be the centerpiece of the most important day of your life, capturing the essence of Indian grandeur with refined restraint.
               </p>
-              <a href="#contact" className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors flex items-center gap-4">
+              <a href="/contact" className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors flex items-center gap-4">
                 <span className="w-8 h-[1px] bg-foreground"></span> Explore Trousseau
               </a>
             </motion.div>
@@ -313,7 +315,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-4 lg:col-start-2 order-2 lg:order-1"
             >
               <h2 className="font-serif text-4xl md:text-5xl mb-6">Everyday <br/><span className="italic text-primary">Brilliance</span></h2>
@@ -325,17 +327,18 @@ export default function Home() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-              className="lg:col-span-6 lg:col-start-7 relative aspect-[4/5] w-full order-1 lg:order-2"
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-6 lg:col-start-7 relative aspect-[4/5] w-full order-1 lg:order-2 group overflow-hidden"
             >
-              <img src="/images/lookbook-2.png" alt="Everyday Collection" className="w-full h-full object-cover" />
+              <img src="/images/lookbook-2.png" alt="Everyday Collection" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-primary/10 group-hover:ring-primary/30 group-hover:shadow-[0_0_30px_rgba(212,163,42,0.15)] transition-all duration-700 pointer-events-none"></div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* 6. CONTACT / APPOINTMENT */}
-      <section id="contact" className="py-24 md:py-40 px-6 bg-foreground text-background relative z-10">
+      <section id="contact" className="py-32 md:py-40 px-6 bg-foreground text-background relative z-10">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             
@@ -373,10 +376,10 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.3 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="w-full h-[400px] lg:h-full min-h-[500px] grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
             >
               <iframe 
@@ -412,8 +415,8 @@ export default function Home() {
               <div className="w-full lg:w-1/2 p-8 lg:p-14 flex flex-col justify-center overflow-y-auto order-2 hide-scrollbar">
                 <p className="text-primary text-[10px] md:text-xs uppercase tracking-widest mb-4">{selectedProduct.category}</p>
                 <DialogTitle className="font-serif text-3xl lg:text-4xl mb-3">{selectedProduct.name}</DialogTitle>
-                <p className="text-xl lg:text-2xl font-serif text-foreground/80 mb-8">
-                  {formatPrice(selectedProduct.price)}
+                <p className="text-[11px] tracking-widest uppercase font-medium text-foreground/50 mb-8">
+                  Price on request
                 </p>
                 
                 <div className="space-y-8 flex-1">
@@ -432,13 +435,6 @@ export default function Home() {
                           <dd className="font-medium text-right lg:text-left">{selectedProduct.clarity}</dd>
                         </>
                       )}
-                      
-                      {selectedProduct.carat && (
-                        <>
-                          <dt className="text-foreground/50 uppercase tracking-wider text-[10px] md:text-xs">Carat Weight</dt>
-                          <dd className="font-medium text-right lg:text-left">{selectedProduct.carat}</dd>
-                        </>
-                      )}
                     </dl>
                   </div>
                   
@@ -453,20 +449,20 @@ export default function Home() {
                     href={`https://wa.me/917093335656?text=I'm%20interested%20in%20the%20${encodeURIComponent(selectedProduct.name)}.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="cta-shimmer flex-1 bg-foreground text-background py-4 uppercase tracking-widest text-xs text-center hover:bg-primary transition-colors duration-700"
+                    className="cta-shimmer flex-1 bg-primary text-primary-foreground py-4 uppercase tracking-widest text-xs text-center hover:bg-primary/90 transition-colors duration-700"
                   >
-                    Inquire on WhatsApp
+                    Inquire via WhatsApp
                   </a>
                   <button 
                     onClick={() => {
                       setSelectedProduct(null);
                       setTimeout(() => {
-                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        window.location.href = '/contact';
                       }, 100);
                     }}
-                    className="flex-1 border border-foreground text-foreground py-4 uppercase tracking-widest text-xs hover:bg-foreground/5 transition-colors duration-700"
+                    className="cta-shimmer flex-1 border border-primary text-primary py-4 uppercase tracking-widest text-xs hover:bg-primary/5 transition-colors duration-700"
                   >
-                    Book Viewing
+                    Book a Private Viewing
                   </button>
                 </div>
               </div>

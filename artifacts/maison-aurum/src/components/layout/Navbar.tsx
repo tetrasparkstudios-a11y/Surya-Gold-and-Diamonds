@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,6 +7,13 @@ import logoMark from "@assets/Screenshot_2025-03-27-22-34-55-57_965bbf4d18d205f7
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [location] = useLocation();
+
+  // The transparent-over-hero look only applies on the home page (which has the
+  // dark cinematic hero). On any other route, render the navbar in its solid
+  // light state so contrast is preserved.
+  const isHome = location === "/" || location === "";
+  const useSolid = isScrolled || !isHome;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,17 +24,17 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Collections", href: "#collections" },
-    { name: "Atelier", href: "#atelier" },
-    { name: "Lookbook", href: "#lookbook" },
-    { name: "Appointments", href: "#contact" },
+    { name: "Collections", href: "/#collections" },
+    { name: "Atelier", href: "/#atelier" },
+    { name: "Lookbook", href: "/#lookbook" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          isScrolled
+          useSolid
             ? "bg-background/90 backdrop-blur-md py-4 shadow-sm"
             : "bg-transparent py-8"
         }`}
@@ -39,7 +46,7 @@ export function Navbar() {
             </span>
             <span
               className={`font-serif text-base md:text-lg lg:text-xl tracking-[0.25em] uppercase hidden sm:block transition-colors duration-500 ${
-                isScrolled ? "text-foreground" : "text-background drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)]"
+                useSolid ? "text-foreground" : "text-background drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)]"
               } group-hover:text-primary`}
             >
               SURYA GOLD <span className="text-primary">&amp;</span> DIAMONDS
@@ -53,7 +60,7 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={`text-xs lg:text-sm tracking-[0.25em] uppercase transition-colors duration-300 hover:text-primary ${
-                  isScrolled ? "text-foreground/80" : "text-background/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
+                  useSolid ? "text-foreground/80" : "text-background/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
                 }`}
               >
                 {link.name}
@@ -64,7 +71,7 @@ export function Navbar() {
           {/* Mobile Menu Toggle */}
           <button
             className={`md:hidden p-2 transition-colors ${
-              isScrolled ? "text-foreground" : "text-background drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
+              useSolid ? "text-foreground" : "text-background drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
             }`}
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Open Menu"
