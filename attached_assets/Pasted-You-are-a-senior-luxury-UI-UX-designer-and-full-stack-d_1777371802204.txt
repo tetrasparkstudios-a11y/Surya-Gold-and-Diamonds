@@ -1,0 +1,284 @@
+You are a senior luxury UI/UX designer and full-stack developer.
+
+The website for SURYA GOLD & DIAMONDS is already built.
+
+Your task is to REFINE and COMPLETE the existing website — not rebuild it.
+
+---
+
+##############################
+🎯 PRIMARY GOAL
+##############################
+
+Make the website feel like a seamless luxury experience.
+
+NO broken flows.
+NO unnecessary page jumps.
+Everything must feel smooth, continuous, and premium.
+
+---
+
+##############################
+🚫 CRITICAL FIXES
+##############################
+
+1. REMOVE separate Contact page
+2. REMOVE any broken “View Full Collection” links
+
+Instead:
+- Everything must exist within the SAME scrolling experience
+- OR open as smooth overlays / modals
+
+---
+
+##############################
+📞 CONTACT SECTION (INLINE, NOT PAGE)
+##############################
+
+Add a premium CONTACT SECTION at the END of homepage.
+
+Design inspired by reference.
+
+Layout:
+
+LEFT SIDE:
+- Heading:
+  “Request a Private Consultation”
+
+- Subtext:
+  “We welcome you to our Hyderabad showroom for a private consultation.”
+
+- Contact info:
+  Address
+  Phone numbers
+  Email
+
+RIGHT SIDE:
+- Clean form:
+  Name
+  City
+  Phone
+  Email (optional)
+  Message
+
+Design:
+- Soft card (rounded edges)
+- Ivory background
+- Thin borders
+- Spacious padding
+
+Animations:
+- Fade in + slight upward motion
+
+---
+
+##############################
+💎 FULL COLLECTION EXPERIENCE (FIX THIS PROPERLY)
+##############################
+
+Replace “View Full Collection” behavior.
+
+DO NOT link to empty page.
+
+Instead implement ONE of these:
+
+OPTION A (BEST):
+- Open a FULL-SCREEN MODAL
+- Show all products in grid
+- Smooth fade + scale animation
+
+OPTION B:
+- Expand section dynamically (load more products)
+
+Grid:
+- 3–4 columns desktop
+- Responsive
+
+Keep:
+- NO pricing
+- Only product name + image
+
+---
+
+##############################
+💎 PRODUCT RULES (IMPORTANT)
+##############################
+
+Remove:
+- Price
+- Weight
+
+Replace with:
+- “Available upon request”
+
+Product modal:
+- Name
+- Description
+- Material
+- Craftsmanship notes
+
+CTA:
+- “Inquire via WhatsApp →”
+- “Book a Private Viewing →”
+
+---
+
+##############################
+🏆 MMTC-PAMP SECTION (ADD BEFORE COLLECTIONS)
+##############################
+
+Add premium partnership section.
+
+Layout:
+- Left: Text
+- Right: Logo + subtle gold background
+
+Content:
+
+Heading:
+“Trusted Partnership with MMTC-PAMP”
+
+Text:
+“We are proud partners of MMTC-PAMP, India’s most trusted name in gold refining and purity. This reflects our commitment to authenticity and global standards.”
+
+Design:
+- Minimal
+- Thin gold divider
+- Soft animation
+
+---
+
+##############################
+🖼 LOOKBOOK SECTION (ADD)
+##############################
+
+Add after collections.
+
+Layout:
+- Masonry grid
+- Editorial style
+- No borders
+
+Hover:
+- Soft zoom
+- Overlay fade
+
+Heading:
+“Lookbook”
+
+Subtext:
+“A glimpse into timeless elegance.”
+
+---
+
+##############################
+✨ ANIMATIONS (REFINEMENT)
+##############################
+
+Use Framer Motion:
+
+All sections:
+- opacity: 0 → 1
+- y: 40 → 0
+- duration: 0.8–1s
+
+Add stagger for child elements.
+
+Hover:
+- scale: 1 → 1.04
+- shadow increase
+
+Keep animations:
+- Slow
+- Smooth
+- Premium
+
+---
+
+##############################
+🧠 ADMIN PANEL (KEEP SIMPLE)
+##############################
+
+Route:
+- /admin
+
+Features:
+- Add product
+- Edit product
+- Delete product
+
+Fields:
+- Name
+- Category
+- Image
+- Description
+- Material
+
+Store:
+- JSON / local state
+
+Ensure:
+- Updates reflect instantly
+
+---
+
+##############################
+📱 UX ENHANCEMENTS
+##############################
+
+- Refine WhatsApp button (smaller, softer gold)
+- Add thin gold dividers between sections
+- Increase whitespace
+- Introduce slight asymmetry
+
+---
+
+##############################
+🎨 DESIGN RULES
+##############################
+
+Maintain:
+- Ivory background
+- Soft gold accents
+- Elegant typography
+
+Avoid:
+- Bright colors
+- Clutter
+- Loud UI
+
+---
+
+##############################
+⚡ PERFORMANCE
+##############################
+
+- Lazy load images
+- Optimize assets
+
+---
+
+##############################
+📦 OUTPUT
+##############################
+
+- Modify existing components
+- Add:
+  - MMTCSection
+  - Lookbook
+  - InlineContactSection
+  - FullCollectionModal
+
+- Clean, modular code
+- Add comments
+
+---
+
+FINAL EXPERIENCE:
+
+The user should scroll through a continuous, cinematic luxury journey.
+
+No dead ends.
+No broken links.
+
+Just a refined digital showroom.

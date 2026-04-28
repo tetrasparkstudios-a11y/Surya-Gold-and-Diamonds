@@ -6,6 +6,8 @@ import { useProducts, Product } from "@/lib/productStore";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { FaWhatsapp } from "react-icons/fa";
 import { MMTCSection } from "@/components/sections/MMTCSection";
+import { InlineContactSection } from "@/components/sections/InlineContactSection";
+import { FullCollectionModal } from "@/components/sections/FullCollectionModal";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -67,9 +69,17 @@ function CursorGlow() {
   );
 }
 
+// Smoothly scroll to the inline contact section. Used by every CTA so the user
+// stays inside the same scrolling experience.
+function scrollToContact() {
+  const el = document.getElementById("contact");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export default function Home() {
   const products = useProducts();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [fullCollectionOpen, setFullCollectionOpen] = useState(false);
 
   // Hero Parallax
   const heroRef = useRef(null);
@@ -165,9 +175,12 @@ export default function Home() {
                 </p>
               </div>
               <div className="mt-12">
-                <a href="/contact" className="cta-shimmer inline-block bg-foreground text-background px-10 py-4 uppercase tracking-widest text-xs hover:bg-primary transition-colors duration-700">
+                <button
+                  onClick={scrollToContact}
+                  className="cta-shimmer inline-block bg-foreground text-background px-10 py-4 uppercase tracking-widest text-xs hover:bg-primary transition-colors duration-700"
+                >
                   Book a Viewing
-                </a>
+                </button>
               </div>
             </motion.div>
 
@@ -206,9 +219,12 @@ export default function Home() {
               <h2 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">Curated Masterpieces</h2>
               <p className="text-foreground/60 font-light leading-relaxed">An intimately selected presentation of our most sought-after works, embodying the pinnacle of Indian craftsmanship.</p>
             </div>
-            <a href="#lookbook" className="border-b border-foreground text-foreground pb-1 uppercase tracking-widest text-xs hover:text-primary hover:border-primary transition-colors duration-500 shrink-0">
+            <button
+              onClick={() => setFullCollectionOpen(true)}
+              className="border-b border-foreground text-foreground pb-1 uppercase tracking-widest text-xs hover:text-primary hover:border-primary transition-colors duration-500 shrink-0"
+            >
               View Full Collection
-            </a>
+            </button>
           </motion.div>
 
           <motion.div 
@@ -304,9 +320,12 @@ export default function Home() {
               <p className="text-foreground/60 font-light leading-relaxed mb-8">
                 Weighty, intricate, and deeply rooted in tradition. Our bridal pieces are designed to be the centerpiece of the most important day of your life, capturing the essence of Indian grandeur with refined restraint.
               </p>
-              <a href="/contact" className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors flex items-center gap-4">
+              <button
+                onClick={scrollToContact}
+                className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors flex items-center gap-4"
+              >
                 <span className="w-8 h-[1px] bg-foreground"></span> Explore Trousseau
-              </a>
+              </button>
             </motion.div>
           </div>
 
@@ -337,66 +356,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. CONTACT / APPOINTMENT */}
-      <section id="contact" className="py-32 md:py-40 px-6 bg-foreground text-background relative z-10">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              className="max-w-xl"
-            >
-              <p className="text-primary text-xs uppercase tracking-widest mb-6">Private Viewing</p>
-              <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-[1.1]">Request an Appointment</h2>
-              <p className="text-background/60 font-light mb-12 text-lg leading-relaxed">
-                We welcome you to our Hyderabad showroom for a private consultation. Experience the weight, warmth, and brilliance of our pieces in person.
-              </p>
-              
-              <div className="space-y-8 mb-12">
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest text-background/40 mb-2">Visit Us</h4>
-                  <p className="font-light text-background/90 leading-relaxed">
-                    Flat No. 103, My Adobe The Sirius,<br/>
-                    Suryodaya Colony, Bandlaguda,<br/>
-                    Ranga Reddy (D), Telangana, India
-                  </p>
-                </div>
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest text-background/40 mb-2">Direct Inquiry</h4>
-                  <p className="font-light text-background/90 space-y-1">
-                    <a href="tel:+917093335656" className="block hover:text-primary transition-colors">+91 70933 35656</a>
-                    <a href="tel:+919490032898" className="block hover:text-primary transition-colors">+91 94900 32898</a>
-                    <a href="mailto:suryagold2024@gmail.com" className="block hover:text-primary transition-colors mt-2">suryagold2024@gmail.com</a>
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full h-[400px] lg:h-full min-h-[500px] grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
-            >
-              <iframe 
-                src="https://www.google.com/maps?q=Bandlaguda+Ranga+Reddy+Telangana&output=embed" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full object-cover"
-              ></iframe>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
+      {/* 6. INLINE CONTACT (no separate /contact page — keeps the user inside
+          the same scrolling experience). */}
+      <InlineContactSection />
 
       <Footer />
 
@@ -456,9 +418,9 @@ export default function Home() {
                   <button 
                     onClick={() => {
                       setSelectedProduct(null);
-                      setTimeout(() => {
-                        window.location.href = '/contact';
-                      }, 100);
+                      // Wait for the modal close transition before scrolling
+                      // so the smooth-scroll target is in its final position.
+                      setTimeout(scrollToContact, 250);
                     }}
                     className="cta-shimmer flex-1 border border-primary text-primary py-4 uppercase tracking-widest text-xs hover:bg-primary/5 transition-colors duration-700"
                   >
@@ -470,6 +432,14 @@ export default function Home() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Full Collection Modal — opens from "View Full Collection" */}
+      <FullCollectionModal
+        open={fullCollectionOpen}
+        onOpenChange={setFullCollectionOpen}
+        products={products}
+        onSelectProduct={(p) => setSelectedProduct(p)}
+      />
     </div>
   );
 }

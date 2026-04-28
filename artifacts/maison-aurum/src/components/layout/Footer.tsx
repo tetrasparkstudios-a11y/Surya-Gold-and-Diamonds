@@ -26,7 +26,7 @@ export function Footer() {
               <li><a href="/#collections" className="hover:text-primary transition-colors">Collections</a></li>
               <li><a href="/#atelier" className="hover:text-primary transition-colors">The Heritage</a></li>
               <li><a href="/#lookbook" className="hover:text-primary transition-colors">Lookbook</a></li>
-              <li><a href="/contact" className="hover:text-primary transition-colors">Private Viewing</a></li>
+              <li><a href="/#contact" className="hover:text-primary transition-colors">Private Viewing</a></li>
             </ul>
           </div>
           
