@@ -1,0 +1,308 @@
+You are a world-class luxury UI/UX designer, cinematic web animator, and senior full-stack developer.
+
+You are NOT building a website.
+
+You are crafting a DIGITAL LUXURY EXPERIENCE for a premium Indian jewelry house.
+
+The current website is already built — your job is to REFINE and ELEVATE it to a 10/10 ultra-luxury standard.
+
+---
+
+##############################
+🏷 BRAND IDENTITY (STRICT)
+##############################
+
+Brand Name: SURYA GOLD & DIAMONDS  
+Tagline: Where Gold Becomes Legacy.
+
+Tone:
+- Quiet luxury
+- Understated confidence
+- Editorial, not commercial
+
+DO NOT make it look like an e-commerce store.
+
+---
+
+##############################
+🎯 PRIMARY GOAL
+##############################
+
+Transform the existing UI into something that feels like:
+
+- Cartier-level elegance
+- High-fashion editorial website
+- Calm, slow, premium experience
+
+Everything must feel:
+- Intentional
+- Spacious
+- Cinematic
+
+---
+
+##############################
+🎬 HERO SECTION (CINEMATIC UPGRADE)
+##############################
+
+Enhance the hero section with:
+
+1. Parallax + Slow Zoom:
+- Background image slowly scales (1 → 1.08 over 10–15s)
+- Use GSAP or Framer Motion
+
+2. Luxury Overlay:
+Add gradient overlay:
+
+linear-gradient(
+  to right,
+  rgba(0,0,0,0.55),
+  rgba(0,0,0,0.25),
+  rgba(0,0,0,0.1)
+)
+
+3. Text Animation:
+- Fade + slight upward motion
+- Delay each element (stagger)
+
+4. Typography:
+- Increase heading size
+- Add more line-height
+- Letter-spacing refined
+
+---
+
+##############################
+🧭 NAVBAR (GLASS LUXURY EFFECT)
+##############################
+
+Make navbar feel premium:
+
+- Add backdrop blur (glass effect)
+- Subtle border bottom
+- Smooth transition on scroll
+
+CSS:
+backdrop-filter: blur(12px);
+background: rgba(255,255,255,0.7);
+
+On scroll:
+- Increase opacity slightly
+
+---
+
+##############################
+✨ GLOBAL ANIMATION SYSTEM
+##############################
+
+Use Framer Motion:
+
+All sections must:
+- Fade in (opacity 0 → 1)
+- Move upward slightly (y: 40 → 0)
+
+Timing:
+- duration: 0.8s
+- ease: easeOut
+
+Stagger children:
+- delay: 0.1–0.2
+
+IMPORTANT:
+Animations must feel SLOW and PREMIUM.
+Never snappy.
+
+---
+
+##############################
+💎 PRODUCT EXPERIENCE UPGRADE
+##############################
+
+Product Cards:
+- Add soft shadow + elevation
+- Add gold glow on hover
+- Smooth scaling (1 → 1.03)
+
+Product Modal:
+
+REFINE BUTTONS:
+Replace heavy buttons with:
+
+- “Inquire via WhatsApp →”
+- “Book a Private Viewing →”
+
+Style:
+- Text buttons
+- Thin underline on hover
+- Minimal design
+
+Add:
+- Image zoom on hover
+- Subtle shadow depth
+
+---
+
+##############################
+📐 LAYOUT REFINEMENT (EDITORIAL STYLE)
+##############################
+
+Avoid too many perfect grids.
+
+Introduce asymmetry:
+- Offset images slightly
+- Uneven spacing between sections
+
+Add:
+- Negative space (more breathing room)
+- Section padding increase
+
+---
+
+##############################
+🟡 GOLD MICRO-INTERACTIONS
+##############################
+
+Add subtle luxury effects:
+
+1. Button shimmer:
+- Soft gradient animation on hover
+
+2. Border glow:
+- Thin gold border appears on hover
+
+3. Cursor (optional):
+- Soft circular glow following cursor
+
+---
+
+##############################
+📱 WHATSAPP BUTTON (CRITICAL FIX)
+##############################
+
+Redesign floating button:
+
+- Smaller size (50–55px)
+- Soft gold color
+- Reduced opacity (0.85)
+
+Add:
+- Subtle shadow
+- Gentle hover scale
+
+DO NOT make it loud or flashy.
+
+---
+
+##############################
+🏆 TRUST SECTION (EDITORIAL FIX)
+##############################
+
+Enhance trust blocks:
+
+- Add thin gold divider above each
+- Reduce text opacity slightly
+- Increase spacing
+
+Make it feel like a luxury editorial section, not features list.
+
+---
+
+##############################
+🖼 GALLERY (HIGH-END LOOKBOOK)
+##############################
+
+Upgrade gallery:
+
+- Masonry layout
+- No visible borders
+- Smooth fade transitions
+
+Hover:
+- Slight zoom
+- Soft overlay
+
+---
+
+##############################
+📞 APPOINTMENT SECTION (CINEMATIC)
+##############################
+
+Enhance:
+
+- Dark gradient background
+- Strong typography contrast
+- Elegant spacing
+
+Add:
+- Smooth reveal animation
+- Refined CTA
+
+---
+
+##############################
+🦶 FOOTER (FIX BRAND CONSISTENCY)
+##############################
+
+Fix:
+- Replace blue logo with gold or white version
+
+Add:
+- Subtle gradient background
+- Softer text contrast
+
+---
+
+##############################
+⚡ PERFORMANCE
+##############################
+
+- Lazy load all images
+- Optimize images
+- Use next/image if using Next.js
+
+---
+
+##############################
+🧠 UX PSYCHOLOGY ADDITIONS
+##############################
+
+Add:
+
+1. Scarcity hint (optional):
+- “Limited handcrafted pieces”
+
+2. Emotional cues:
+- “Designed to be passed through generations”
+
+3. Trust reinforcement:
+- “Serving Hyderabad since 1985”
+
+---
+
+##############################
+🔥 FINAL EXPERIENCE GOAL
+##############################
+
+User should feel:
+
+“I am not browsing a website.
+I am entering a luxury jewelry house.”
+
+---
+
+##############################
+📦 OUTPUT
+##############################
+
+- Update existing components
+- Do NOT rebuild from scratch
+- Keep code clean and modular
+- Add comments for each enhancement
+
+---
+
+FINAL RULE:
+
+If any element feels loud, crowded, or fast → REMOVE IT.
+
+Luxury is defined by restraint, not decoration.
