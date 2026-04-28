@@ -7,8 +7,8 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { FaWhatsapp } from "react-icons/fa";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.0, ease: [0.22, 1, 0.36, 1] } }
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } }
 };
 
 const staggerContainer = {
@@ -26,6 +26,7 @@ function CursorGlow() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Only show on desktop
     if (window.matchMedia("(hover: none)").matches) return;
 
     const updateMousePosition = (e: MouseEvent) => {
@@ -52,12 +53,12 @@ function CursorGlow() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed pointer-events-none z-0 w-[800px] h-[800px] rounded-full"
+          className="fixed pointer-events-none z-0 w-[600px] h-[600px] rounded-full"
           style={{
-            left: mousePosition.x - 400,
-            top: mousePosition.y - 400,
-            background: "radial-gradient(circle, rgba(212, 163, 42, 0.15) 0%, rgba(212, 163, 42, 0) 60%)",
-            filter: "blur(60px)",
+            left: mousePosition.x - 300,
+            top: mousePosition.y - 300,
+            background: "radial-gradient(circle, rgba(212, 163, 42, 0.04) 0%, rgba(212, 163, 42, 0) 70%)",
+            filter: "blur(40px)",
           }}
         />
       )}
@@ -91,118 +92,101 @@ export default function Home() {
       <Navbar />
 
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 group">
-        <div className="absolute inset-0 bg-primary/30 rounded-full blur-xl scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-        <a 
-          href="https://wa.me/917093335656?text=Hello%20Surya%20Gold%20%26%20Diamonds%2C%20I%27d%20like%20to%20enquire%20about%20a%20piece."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative flex items-center justify-center w-[52px] h-[52px] bg-primary/90 text-white rounded-full shadow-[0_12px_30px_-10px_hsla(var(--primary),0.45)] hover:scale-105 hover:opacity-100 transition-all duration-400 ease-out pulse-ring"
-          aria-label="Contact on WhatsApp"
-        >
-          <FaWhatsapp className="w-6 h-6" />
-        </a>
-        <div className="absolute right-full top-1/2 -translate-y-1/2 mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden md:block">
-          <div className="bg-[#FCF9F2] text-foreground font-serif text-xs px-3 py-1.5 rounded-full shadow-md whitespace-nowrap border border-primary/10">
-            Chat with us
-          </div>
-        </div>
-      </div>
+      <a 
+        href="https://wa.me/917093335656?text=Hello%20Surya%20Gold%20%26%20Diamonds%2C%20I%27d%20like%20to%20enquire%20about%20a%20piece."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 bg-primary text-primary-foreground p-4 md:p-5 rounded-full shadow-[0_10px_40px_rgba(212,163,42,0.3)] hover:scale-110 transition-transform duration-500 pulse-ring"
+        aria-label="Contact on WhatsApp"
+      >
+        <FaWhatsapp className="w-6 h-6 md:w-8 md:h-8" />
+      </a>
 
       {/* 1. HERO SECTION */}
       <section ref={heroRef} className="relative h-[90svh] md:h-screen w-full flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-16 overflow-hidden bg-foreground">
         <motion.div 
           style={{ y: heroY, opacity: heroOpacity }}
-          className="absolute inset-0 z-0 hero-bg-scale"
+          className="absolute inset-0 z-0"
         >
           <img 
             src="/images/hero.png" 
             alt="Surya Gold & Diamonds Heritage" 
-            className="w-full h-full object-cover mix-blend-luminosity"
+            className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.65)] via-[rgba(0,0,0,0.35)] to-[rgba(0,0,0,0.15)]"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.8)] via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/40 to-transparent"></div>
         </motion.div>
         
-        <div className="relative z-10 max-w-5xl">
+        <div className="relative z-10 max-w-4xl">
           <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-primary text-[10px] md:text-xs uppercase tracking-[0.25em] mb-6 font-light"
+            initial={{ opacity: 0, tracking: "0em" }}
+            animate={{ opacity: 1, tracking: "0.2em" }}
+            transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+            className="text-primary text-xs md:text-sm uppercase tracking-widest mb-6 font-light"
           >
             Since 1985 • Hyderabad
           </motion.p>
           <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="font-serif text-5xl md:text-[clamp(4rem,8vw,8rem)] text-[#FCF9F2] font-medium tracking-[-0.02em] leading-[1.05]"
+            transition={{ duration: 1.4, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="font-serif text-5xl md:text-7xl lg:text-8xl text-background font-medium tracking-wide leading-[1.1]"
           >
             Where Gold <br className="hidden md:block" /> Becomes Legacy.
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[#FCF9F2]/80 font-light mt-6 max-w-lg text-lg leading-relaxed hidden md:block"
-          >
-            Master craftsmanship and generational trust, offering the finest heirloom jewelry and bespoke creations.
-          </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10"
+            transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
+            className="mt-12"
           >
-            <a href="#collections" className="inline-block border-b border-primary/50 text-[#FCF9F2] pb-1 uppercase tracking-[0.2em] text-xs hover:text-primary hover:border-primary transition-colors duration-500">
+            <a href="#collections" className="inline-block border-b border-primary text-primary pb-1 uppercase tracking-widest text-xs hover:text-background hover:border-background transition-colors duration-700">
               Discover Collections
             </a>
           </motion.div>
         </div>
       </section>
 
-      {/* 2. PHILOSOPHY / STORY */}
-      <section id="atelier" className="py-20 md:py-40 bg-background relative z-10">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-center">
+      {/* 2. PHILOSOPHY / STORY (Editorial Asymmetry) */}
+      <section id="atelier" className="py-24 md:py-40 bg-background relative z-10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-center">
             
             <motion.div 
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-5 lg:col-start-2 order-2 lg:order-1"
             >
-              <p className="text-primary text-[10px] uppercase tracking-[0.25em] mb-8">Our Heritage</p>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-10 leading-[1.1] tracking-[-0.01em]">
+              <p className="text-primary text-xs uppercase tracking-widest mb-8">Our Heritage</p>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-10 leading-[1.2]">
                 Quiet confidence, <br/><span className="italic text-foreground/70">generations of trust.</span>
               </h2>
-              <div className="space-y-6 text-foreground/75 font-light leading-relaxed text-sm md:text-base">
+              <div className="space-y-6 text-foreground/80 font-light leading-relaxed text-sm md:text-base">
                 <p>
-                  At Surya Gold & Diamonds, we believe true luxury whispers. Our family has served the finest households of Hyderabad for decades, operating on the ancient rhythms of master goldsmiths. Designed to be passed through generations.
+                  At Surya Gold & Diamonds, we believe true luxury whispers. Our family has served the finest households of Hyderabad for decades, operating on the ancient rhythms of master goldsmiths.
                 </p>
                 <p>
                   Every piece is a dialogue between raw, natural brilliance and human intentionality. From bridal trousseaus to everyday elegance, we don't just craft jewelry; we forge heirlooms.
                 </p>
               </div>
-              <div className="mt-14">
-                <a href="#contact" className="cta-shimmer inline-block bg-foreground text-background px-10 py-4 uppercase tracking-[0.2em] text-xs hover:bg-primary transition-colors duration-700">
+              <div className="mt-12">
+                <a href="#contact" className="cta-shimmer inline-block bg-foreground text-background px-10 py-4 uppercase tracking-widest text-xs hover:bg-primary transition-colors duration-700">
                   Book a Viewing
                 </a>
               </div>
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-              className="lg:col-span-5 relative aspect-[3/4] w-full order-1 lg:order-2 mt-0 lg:mt-32"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.8, ease: "easeOut" }}
+              className="lg:col-span-5 relative aspect-[3/4] w-full order-1 lg:order-2 mt-0 lg:mt-24"
             >
-              <img src="/images/philosophy.png" alt="Master Craftsmanship" loading="lazy" className="w-full h-full object-cover" />
+              <img src="/images/philosophy.png" alt="Master Craftsmanship" className="w-full h-full object-cover" />
               <div className="absolute -right-4 -bottom-4 md:-right-8 md:-bottom-8 w-2/3 aspect-square bg-secondary -z-10"></div>
-              <p className="absolute -left-8 top-1/2 -rotate-90 origin-center text-[10px] tracking-[0.3em] uppercase text-foreground/40 hidden md:block">
+              <p className="absolute -left-6 top-1/2 -rotate-90 origin-center text-[10px] tracking-[0.3em] uppercase text-foreground/50 hidden md:block">
                 BIS Hallmark Certified
               </p>
             </motion.div>
@@ -212,20 +196,20 @@ export default function Home() {
       </section>
 
       {/* 3. FEATURED PIECES */}
-      <section id="collections" className="py-24 md:py-40 bg-secondary relative z-10">
-        <div className="container mx-auto px-6 max-w-7xl">
+      <section id="collections" className="py-32 bg-secondary relative z-10">
+        <div className="container mx-auto px-6">
           <motion.div 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
-            className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8"
+            className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6"
           >
-            <div className="max-w-2xl">
-              <h2 className="font-serif text-4xl md:text-6xl mb-6 leading-[1.05] tracking-[-0.01em]">Curated Masterpieces</h2>
-              <p className="text-foreground/60 font-light leading-relaxed text-lg">An intimately selected presentation of our most sought-after works, embodying the pinnacle of Indian craftsmanship.</p>
+            <div className="max-w-xl">
+              <h2 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">Curated Masterpieces</h2>
+              <p className="text-foreground/60 font-light leading-relaxed">An intimately selected presentation of our most sought-after works, embodying the pinnacle of Indian craftsmanship.</p>
             </div>
-            <a href="#lookbook" className="border-b border-foreground/30 text-foreground pb-1 uppercase tracking-[0.2em] text-xs hover:text-primary hover:border-primary transition-colors duration-500 shrink-0">
+            <a href="#lookbook" className="border-b border-foreground text-foreground pb-1 uppercase tracking-widest text-xs hover:text-primary hover:border-primary transition-colors duration-500 shrink-0">
               View Full Collection
             </a>
           </motion.div>
@@ -234,37 +218,31 @@ export default function Home() {
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-x-10 md:gap-y-16"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12"
           >
-            {products.map((product, i) => (
+            {products.map((product) => (
               <motion.div 
                 key={product.id}
                 variants={fadeInUp}
-                className={`group cursor-pointer flex flex-col ${i === 1 ? 'lg:col-span-2 lg:row-span-2' : ''} ${i === 2 ? 'lg:mt-16' : ''}`}
+                className="group cursor-pointer flex flex-col"
                 onClick={() => setSelectedProduct(product)}
               >
-                <div className="relative aspect-[4/5] mb-6 overflow-hidden bg-background shadow-sm group-hover:shadow-[0_20px_60px_-20px_hsla(var(--primary),0.35)] group-hover:-translate-y-1.5 transition-all duration-800 ease-out border border-transparent group-hover:border-primary/40">
-                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-700 z-10 pointer-events-none"></div>
-                  <div className="w-full h-full overflow-hidden">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-[1s] ease-out group-hover:scale-[1.06]"
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-background/90 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex justify-between items-end">
-                    <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground">View Details</span>
+                <div className="relative aspect-[4/5] mb-6 overflow-hidden bg-background">
+                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-700 z-10"></div>
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex justify-between items-end">
+                    <span className="text-xs uppercase tracking-widest font-medium text-foreground">View</span>
                   </div>
                 </div>
-                <div className="mt-auto px-1">
-                  <div className="flex justify-between items-center mb-2">
-                    <p className="text-[9px] uppercase tracking-[0.2em] text-primary">{product.category}</p>
-                    <p className="text-[9px] uppercase tracking-[0.2em] text-foreground/40">{i % 2 === 0 ? "One of twelve" : "Made to order"}</p>
-                  </div>
-                  <h3 className="font-serif text-2xl mb-1 text-foreground group-hover:text-primary transition-colors duration-500">{product.name}</h3>
-                  <p className="text-sm text-foreground/60 font-light mt-1">{formatPrice(product.price)}</p>
+                <div className="mt-auto">
+                  <p className="text-[10px] uppercase tracking-widest text-primary mb-2">{product.category}</p>
+                  <h3 className="font-serif text-xl md:text-2xl mb-1 group-hover:text-primary transition-colors duration-500">{product.name}</h3>
+                  <p className="text-sm text-foreground/60 font-light mt-2">{formatPrice(product.price)}</p>
                 </div>
               </motion.div>
             ))}
@@ -272,10 +250,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. TRUST PILLARS (Editorial) */}
-      <section className="py-24 md:py-32 px-6 bg-background relative z-10 border-b border-border/40">
+      {/* 4. TRUST PILLARS */}
+      <section className="py-24 md:py-32 px-6 bg-background relative z-10 border-b border-border/50">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 text-center">
             {[
               { title: "BIS Hallmarked", desc: "Every piece of gold carries the official government hallmark of purity, ensuring absolute trust." },
               { title: "Certified Diamonds", desc: "Flawless solitaires and precious stones, rigorously certified by leading gemological institutes." },
@@ -283,15 +261,17 @@ export default function Home() {
             ].map((pillar, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: i * 0.15 }}
-                className="space-y-6 flex flex-col"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={fadeInUp}
+                className="space-y-5"
               >
-                <div className="h-[1px] w-10 bg-primary/60 mb-2"></div>
-                <h3 className="font-serif text-2xl md:text-3xl text-foreground">{pillar.title}</h3>
-                <p className="text-foreground/75 font-light text-sm leading-relaxed">{pillar.desc}</p>
+                <div className="w-12 h-12 mx-auto border border-primary/30 flex items-center justify-center rounded-full text-primary mb-6">
+                  <span className="font-serif text-xl italic">{i+1}</span>
+                </div>
+                <h3 className="font-serif text-2xl md:text-3xl">{pillar.title}</h3>
+                <p className="text-foreground/60 font-light text-sm max-w-xs mx-auto leading-relaxed">{pillar.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -299,125 +279,116 @@ export default function Home() {
       </section>
 
       {/* 5. EDITORIAL LOOKBOOK */}
-      <section id="lookbook" className="py-24 md:py-40 bg-background relative z-10">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
-          >
-            {/* Break items down for masonry */}
-            <div className="break-inside-avoid relative group overflow-hidden cursor-pointer">
-              <img src="/images/lookbook-1.png" loading="lazy" alt="Bridal Collection" className="w-full h-auto transition-transform duration-1000 ease-out group-hover:scale-[1.04]" />
-              <div className="absolute inset-0 bg-[rgba(20,15,5,0.25)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
-                <span className="text-[#FCF9F2] font-serif text-lg tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 translate-y-4 group-hover:translate-y-0">The Bridal Trousseau</span>
-              </div>
-            </div>
-            
-            <div className="break-inside-avoid relative group overflow-hidden cursor-pointer bg-secondary p-12 flex flex-col justify-center items-center text-center">
-              <p className="text-primary text-[10px] uppercase tracking-[0.2em] mb-4">The Collection</p>
-              <h2 className="font-serif text-3xl mb-4 leading-tight">Everyday <br/><span className="italic text-foreground/70">Brilliance</span></h2>
-              <p className="text-foreground/60 font-light text-sm max-w-xs">For the moments between the milestones. Delicate settings that elevate the everyday.</p>
-            </div>
+      <section id="lookbook" className="py-32 md:py-48 bg-background relative z-10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="lg:col-span-7 relative aspect-[16/9] md:aspect-video w-full"
+            >
+              <img src="/images/lookbook-1.png" alt="Bridal Collection" className="w-full h-full object-cover" />
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+              className="lg:col-span-4 lg:col-start-9"
+            >
+              <h2 className="font-serif text-4xl md:text-5xl mb-6">The Bridal <br/><span className="italic text-primary">Trousseau</span></h2>
+              <p className="text-foreground/60 font-light leading-relaxed mb-8">
+                Weighty, intricate, and deeply rooted in tradition. Our bridal pieces are designed to be the centerpiece of the most important day of your life, capturing the essence of Indian grandeur with refined restraint.
+              </p>
+              <a href="#contact" className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors flex items-center gap-4">
+                <span className="w-8 h-[1px] bg-foreground"></span> Explore Trousseau
+              </a>
+            </motion.div>
+          </div>
 
-            <div className="break-inside-avoid relative group overflow-hidden cursor-pointer">
-              <img src="/images/lookbook-2.png" loading="lazy" alt="Everyday Collection" className="w-full h-auto transition-transform duration-1000 ease-out group-hover:scale-[1.04]" />
-              <div className="absolute inset-0 bg-[rgba(20,15,5,0.25)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
-                <span className="text-[#FCF9F2] font-serif text-lg tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 translate-y-4 group-hover:translate-y-0">Everyday Elegance</span>
-              </div>
-            </div>
-            
-             <div className="break-inside-avoid relative group overflow-hidden cursor-pointer">
-              <img src="/images/collections/bridal.png" loading="lazy" alt="Bridal Details" className="w-full h-auto transition-transform duration-1000 ease-out group-hover:scale-[1.04]" />
-              <div className="absolute inset-0 bg-[rgba(20,15,5,0.25)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
-                <span className="text-[#FCF9F2] font-serif text-lg tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 translate-y-4 group-hover:translate-y-0">Heritage Details</span>
-              </div>
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="lg:col-span-4 lg:col-start-2 order-2 lg:order-1"
+            >
+              <h2 className="font-serif text-4xl md:text-5xl mb-6">Everyday <br/><span className="italic text-primary">Brilliance</span></h2>
+              <p className="text-foreground/60 font-light leading-relaxed mb-8">
+                For the moments between the milestones. Delicate diamond settings and minimalist gold forms that elevate the everyday into something extraordinary.
+              </p>
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+              className="lg:col-span-6 lg:col-start-7 relative aspect-[4/5] w-full order-1 lg:order-2"
+            >
+              <img src="/images/lookbook-2.png" alt="Everyday Collection" className="w-full h-full object-cover" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* 6. CONTACT / APPOINTMENT */}
-      <section id="contact" className="py-24 md:py-40 px-6 bg-gradient-to-br from-[hsl(var(--foreground))] to-[#0a0908] text-[#FCF9F2] relative z-10">
-        <div className="container mx-auto max-w-7xl">
+      <section id="contact" className="py-24 md:py-40 px-6 bg-foreground text-background relative z-10">
+        <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
               className="max-w-xl"
             >
-              <p className="text-primary text-[10px] uppercase tracking-[0.25em] mb-8">Private Viewing</p>
-              <h2 className="font-serif text-4xl md:text-6xl mb-10 leading-[1.05] tracking-[-0.01em]">Request an Appointment</h2>
-              <p className="text-[#FCF9F2]/70 font-light mb-16 text-lg leading-relaxed">
+              <p className="text-primary text-xs uppercase tracking-widest mb-6">Private Viewing</p>
+              <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-[1.1]">Request an Appointment</h2>
+              <p className="text-background/60 font-light mb-12 text-lg leading-relaxed">
                 We welcome you to our Hyderabad showroom for a private consultation. Experience the weight, warmth, and brilliance of our pieces in person.
               </p>
               
-              <form className="space-y-8 mb-16">
-                <div className="relative group">
-                  <label className="absolute -top-3 left-0 text-[9px] uppercase tracking-[0.2em] text-[#FCF9F2]/50">Name</label>
-                  <input type="text" placeholder="Your full name" className="w-full h-14 bg-transparent border-b border-[#FCF9F2]/30 text-[#FCF9F2] placeholder:text-[#FCF9F2]/40 focus:outline-none focus:border-primary transition-colors duration-500 font-light" />
+              <div className="space-y-8 mb-12">
+                <div>
+                  <h4 className="text-xs uppercase tracking-widest text-background/40 mb-2">Visit Us</h4>
+                  <p className="font-light text-background/90 leading-relaxed">
+                    Flat No. 103, My Adobe The Sirius,<br/>
+                    Suryodaya Colony, Bandlaguda,<br/>
+                    Ranga Reddy (D), Telangana, India
+                  </p>
                 </div>
-                <div className="relative group">
-                  <label className="absolute -top-3 left-0 text-[9px] uppercase tracking-[0.2em] text-[#FCF9F2]/50">Phone / WhatsApp</label>
-                  <input type="tel" placeholder="Your contact number" className="w-full h-14 bg-transparent border-b border-[#FCF9F2]/30 text-[#FCF9F2] placeholder:text-[#FCF9F2]/40 focus:outline-none focus:border-primary transition-colors duration-500 font-light" />
+                <div>
+                  <h4 className="text-xs uppercase tracking-widest text-background/40 mb-2">Direct Inquiry</h4>
+                  <p className="font-light text-background/90 space-y-1">
+                    <a href="tel:+917093335656" className="block hover:text-primary transition-colors">+91 70933 35656</a>
+                    <a href="tel:+919490032898" className="block hover:text-primary transition-colors">+91 94900 32898</a>
+                    <a href="mailto:suryagold2024@gmail.com" className="block hover:text-primary transition-colors mt-2">suryagold2024@gmail.com</a>
+                  </p>
                 </div>
-                <div className="relative group">
-                  <label className="absolute -top-3 left-0 text-[9px] uppercase tracking-[0.2em] text-[#FCF9F2]/50">Inquiry</label>
-                  <input type="text" placeholder="What are you looking for?" className="w-full h-14 bg-transparent border-b border-[#FCF9F2]/30 text-[#FCF9F2] placeholder:text-[#FCF9F2]/40 focus:outline-none focus:border-primary transition-colors duration-500 font-light" />
-                </div>
-                <div className="pt-6">
-                  <button type="button" className="cta-shimmer inline-flex items-center text-sm uppercase tracking-[0.2em] text-[#FCF9F2] group pb-2 relative">
-                    Submit Request &rarr;
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full"></span>
-                  </button>
-                </div>
-              </form>
+              </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 1.0, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col space-y-12"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.3 }}
+              className="w-full h-[400px] lg:h-full min-h-[500px] grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
             >
-              <div className="w-full h-[350px] lg:h-[450px] p-1 border border-primary/20 bg-foreground/50">
-                <div className="w-full h-full grayscale-[30%] contrast-[1.05] opacity-90 hover:opacity-100 transition-opacity duration-700">
-                  <iframe 
-                    src="https://www.google.com/maps?q=Bandlaguda+Ranga+Reddy+Telangana&output=embed" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen={true} 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="w-full h-full object-cover"
-                  ></iframe>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-8">
-                <div>
-                  <h4 className="text-[10px] uppercase tracking-[0.2em] text-primary mb-3">Showroom</h4>
-                  <p className="font-serif font-light text-[#FCF9F2]/80 leading-relaxed text-lg">
-                    Flat No. 103, My Adobe<br/>
-                    The Sirius, Suryodaya Colony,<br/>
-                    Bandlaguda, Ranga Reddy (D)
-                  </p>
-                </div>
-                <div>
-                  <h4 className="text-[10px] uppercase tracking-[0.2em] text-primary mb-3">Direct Lines</h4>
-                  <p className="font-serif font-light text-[#FCF9F2]/80 space-y-1 text-lg">
-                    <a href="tel:+917093335656" className="block hover:text-primary transition-colors">+91 70933 35656</a>
-                    <a href="tel:+919490032898" className="block hover:text-primary transition-colors">+91 94900 32898</a>
-                  </p>
-                </div>
-              </div>
+              <iframe 
+                src="https://www.google.com/maps?q=Bandlaguda+Ranga+Reddy+Telangana&output=embed" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full object-cover"
+              ></iframe>
             </motion.div>
 
           </div>
@@ -428,66 +399,63 @@ export default function Home() {
 
       {/* Product Detail Modal */}
       <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
-        <DialogContent className="max-w-5xl w-full p-0 border-none bg-background rounded-none overflow-hidden outline-none">
+        <DialogContent className="max-w-5xl p-0 border-none bg-background rounded-none overflow-hidden">
           {selectedProduct && (
-            <div className="flex flex-col lg:flex-row h-[85vh] lg:h-[750px]">
-              <div className="w-full lg:w-1/2 relative bg-secondary order-1 h-72 lg:h-full shrink-0 overflow-hidden">
+            <div className="flex flex-col lg:flex-row h-[85vh] lg:h-[700px]">
+              <div className="w-full lg:w-1/2 relative bg-secondary order-1 h-64 lg:h-full shrink-0">
                 <img 
                   src={selectedProduct.image} 
                   alt={selectedProduct.name} 
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="w-full lg:w-1/2 p-8 lg:p-16 flex flex-col justify-start overflow-y-auto order-2 hide-scrollbar">
-                <p className="text-primary text-[10px] uppercase tracking-[0.25em] mb-4">{selectedProduct.category}</p>
-                <DialogTitle className="font-serif text-3xl lg:text-4xl mb-4 font-normal tracking-[-0.01em]">{selectedProduct.name}</DialogTitle>
-                <p className="text-xl font-serif text-foreground/70 mb-10">
+              <div className="w-full lg:w-1/2 p-8 lg:p-14 flex flex-col justify-center overflow-y-auto order-2 hide-scrollbar">
+                <p className="text-primary text-[10px] md:text-xs uppercase tracking-widest mb-4">{selectedProduct.category}</p>
+                <DialogTitle className="font-serif text-3xl lg:text-4xl mb-3">{selectedProduct.name}</DialogTitle>
+                <p className="text-xl lg:text-2xl font-serif text-foreground/80 mb-8">
                   {formatPrice(selectedProduct.price)}
                 </p>
                 
-                <div className="space-y-10 flex-1">
+                <div className="space-y-8 flex-1">
                   <p className="text-sm font-light leading-relaxed text-foreground/80">
                     {selectedProduct.description}
                   </p>
                   
-                  <div className="pt-8 border-t border-primary/20">
-                    <div className="grid grid-cols-2 gap-y-6 text-sm">
-                      <div className="border-b border-primary/10 pb-4">
-                        <span className="block text-foreground/40 uppercase tracking-[0.2em] text-[9px] mb-2">Material</span>
-                        <span className="font-serif text-base text-foreground">{selectedProduct.karat}</span>
-                      </div>
+                  <div className="pt-8 border-t border-border/50">
+                    <dl className="grid grid-cols-2 gap-y-6 text-sm">
+                      <dt className="text-foreground/50 uppercase tracking-wider text-[10px] md:text-xs">Material</dt>
+                      <dd className="font-medium text-right lg:text-left">{selectedProduct.karat}</dd>
                       
                       {selectedProduct.clarity && (
-                        <div className="border-b border-primary/10 pb-4 pl-6 border-l border-primary/10">
-                          <span className="block text-foreground/40 uppercase tracking-[0.2em] text-[9px] mb-2">Clarity</span>
-                          <span className="font-serif text-base text-foreground">{selectedProduct.clarity}</span>
-                        </div>
+                        <>
+                          <dt className="text-foreground/50 uppercase tracking-wider text-[10px] md:text-xs">Clarity</dt>
+                          <dd className="font-medium text-right lg:text-left">{selectedProduct.clarity}</dd>
+                        </>
                       )}
                       
                       {selectedProduct.carat && (
-                        <div className="border-b border-primary/10 pb-4">
-                          <span className="block text-foreground/40 uppercase tracking-[0.2em] text-[9px] mb-2">Carat Weight</span>
-                          <span className="font-serif text-base text-foreground">{selectedProduct.carat}</span>
-                        </div>
+                        <>
+                          <dt className="text-foreground/50 uppercase tracking-wider text-[10px] md:text-xs">Carat Weight</dt>
+                          <dd className="font-medium text-right lg:text-left">{selectedProduct.carat}</dd>
+                        </>
                       )}
-                    </div>
+                    </dl>
                   </div>
                   
-                  <div>
-                    <p className="text-[9px] uppercase tracking-[0.2em] text-primary mb-2">Atelier Notes</p>
-                    <p className="text-sm font-serif italic text-foreground/70 leading-relaxed">{selectedProduct.craftsmanship}</p>
+                  <div className="bg-secondary/50 p-6 mt-8">
+                    <p className="text-[10px] uppercase tracking-widest text-primary mb-3">Atelier Notes</p>
+                    <p className="text-sm font-serif italic text-foreground/80 leading-relaxed">{selectedProduct.craftsmanship}</p>
                   </div>
                 </div>
 
-                <div className="mt-12 pt-8 flex flex-col sm:flex-row items-center gap-8 border-t border-primary/10">
+                <div className="mt-10 pt-6 flex flex-col sm:flex-row gap-4">
                   <a 
-                    href={`https://wa.me/917093335656?text=${encodeURIComponent(`Hello Surya Gold & Diamonds, I'd like to enquire about the ${selectedProduct.name}.`)}`}
+                    href={`https://wa.me/917093335656?text=I'm%20interested%20in%20the%20${encodeURIComponent(selectedProduct.name)}.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex text-sm uppercase tracking-[0.2em] text-foreground group pb-1 relative"
+                    className="cta-shimmer flex-1 bg-foreground text-background py-4 uppercase tracking-widest text-xs text-center hover:bg-primary transition-colors duration-700"
                   >
-                    Inquire via WhatsApp &rarr;
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full"></span>
+                    Inquire on WhatsApp
                   </a>
                   <button 
                     onClick={() => {
@@ -496,10 +464,9 @@ export default function Home() {
                         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                       }, 100);
                     }}
-                    className="inline-flex text-sm uppercase tracking-[0.2em] text-foreground group pb-1 relative"
+                    className="flex-1 border border-foreground text-foreground py-4 uppercase tracking-widest text-xs hover:bg-foreground/5 transition-colors duration-700"
                   >
-                    Book a Private Viewing &rarr;
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full"></span>
+                    Book Viewing
                   </button>
                 </div>
               </div>
