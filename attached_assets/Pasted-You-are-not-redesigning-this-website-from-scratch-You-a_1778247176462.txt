@@ -1,0 +1,450 @@
+You are not redesigning this website from scratch.
+
+You are refining and elevating an already well-designed luxury jewelry website for:
+
+SURYA GOLD & DIAMONDS
+
+Your job is to make the website feel like a true premium luxury jewelry house:
+calm, cinematic, elegant, editorial, refined, and trustworthy.
+
+This is NOT an ecommerce-heavy website.
+This is a DIGITAL SHOWROOM experience.
+
+The current website direction is already strong.
+Do NOT drastically change layouts, typography, or overall structure.
+Only refine, enhance, polish, optimize, and perfect the experience.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🏷 BRAND IDENTITY
+━━━━━━━━━━━━━━━━━━━━━━
+
+Brand:
+SURYA GOLD & DIAMONDS
+
+Tagline:
+“Where Gold Becomes Legacy.”
+
+Brand Feel:
+- Quiet luxury
+- Timeless elegance
+- Indian craftsmanship with global refinement
+- Premium, understated, sophisticated
+
+The website should feel emotionally similar to:
+- Cartier
+- Tiffany
+- Rolex
+- Bvlgari
+- Apple luxury storytelling
+
+But NEVER copy them directly.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🎯 PRIMARY OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━
+
+Transform the current website into a polished luxury experience with:
+
+- smoother interactions
+- cinematic motion
+- refined spacing
+- stronger visual consistency
+- premium responsiveness
+- flawless UX
+- subtle luxury psychology
+
+WITHOUT making it flashy or overdesigned.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🚫 ABSOLUTE RULES
+━━━━━━━━━━━━━━━━━━━━━━
+
+DO NOT:
+- add clutter
+- use loud colors
+- add excessive animations
+- use cheap gradients
+- make it look like an ecommerce marketplace
+- use fast transitions
+- overload with effects
+- add unnecessary sections
+
+Luxury comes from restraint.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🎨 DESIGN SYSTEM
+━━━━━━━━━━━━━━━━━━━━━━
+
+Maintain the current aesthetic:
+
+Backgrounds:
+- Ivory
+- Champagne
+- Warm off-white
+
+Accent:
+- Soft gold only
+
+Typography:
+- Elegant serif for headings
+- Clean sans-serif for body
+
+Use:
+- thin borders
+- generous but intentional spacing
+- soft shadows
+- refined contrast
+
+Avoid:
+- hard edges
+- heavy shadows
+- bright yellow gold
+
+━━━━━━━━━━━━━━━━━━━━━━
+⚠️ CRITICAL UX FIXES
+━━━━━━━━━━━━━━━━━━━━━━
+
+1. FIX EXCESSIVE EMPTY SPACES
+Some sections currently have too much dead vertical space.
+Reduce unnecessary whitespace while maintaining breathing room.
+
+Use:
+padding-top/bottom around 100–120px max on desktop.
+
+Mobile spacing must be tighter.
+
+2. FIX FOOTER BRAND CONSISTENCY
+The footer logo must use:
+- gold logo
+OR
+- white monochrome logo
+
+Never blue.
+
+3. FULL RESPONSIVENESS
+The website must feel premium on:
+- desktop
+- tablet
+- mobile
+
+Mobile is extremely important.
+
+━━━━━━━━━━━━━━━━━━━━━━
+📱 MOBILE EXPERIENCE (VERY IMPORTANT)
+━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize every section for mobile luxury UX.
+
+Requirements:
+- proper typography scaling
+- elegant spacing
+- centered content where needed
+- no cropped awkward images
+- smooth menu drawer
+- no oversized text blocks
+
+Use:
+font-size: clamp()
+
+Ensure images remain elegant on mobile.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🎬 ANIMATION SYSTEM
+━━━━━━━━━━━━━━━━━━━━━━
+
+Animations must feel:
+- slow
+- cinematic
+- smooth
+- expensive
+
+Use Framer Motion.
+
+Global animation style:
+
+initial:
+- opacity: 0
+- y: 40
+
+animate:
+- opacity: 1
+- y: 0
+
+transition:
+- duration: 0.8–1.2
+- ease: cubic-bezier(.16,1,.3,1)
+
+Add stagger animations for groups.
+
+━━━━━━━━━━━━━━━━━━━━━━
+✨ MICRO INTERACTIONS
+━━━━━━━━━━━━━━━━━━━━━━
+
+Add refined luxury interactions:
+
+Navbar links:
+- animated underline
+- subtle letter-spacing expansion
+
+Buttons:
+- soft shimmer effect
+- smooth underline animation
+
+Images:
+- scale slightly on hover
+- soft shadow increase
+
+Cards:
+- subtle elevation
+- smooth transitions
+
+DO NOT overdo interactions.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🎥 CINEMATIC MOTION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Add subtle parallax and cinematic movement.
+
+Examples:
+- hero background slow zoom
+- images drift slightly while scrolling
+- layered motion depth
+
+Motion should be almost invisible.
+Only enough to make the site feel alive.
+
+━━━━━━━━━━━━━━━━━━━━━━
+💎 HERO SECTION REFINEMENT
+━━━━━━━━━━━━━━━━━━━━━━
+
+Keep current hero structure.
+
+Enhance:
+- depth
+- contrast
+- typography refinement
+- cinematic atmosphere
+
+Add:
+- subtle text shadow
+- improved overlay depth
+- smoother fade transitions
+
+Hero should feel immersive and luxurious.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🏆 MMTC-PAMP SECTION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Keep MMTC-PAMP partnership section.
+
+Refine:
+- spacing
+- typography
+- image treatment
+- animation timing
+
+This section builds trust and prestige.
+
+It should feel:
+- authoritative
+- elegant
+- premium
+
+━━━━━━━━━━━━━━━━━━━━━━
+💎 COLLECTION SECTION (IMPORTANT)
+━━━━━━━━━━━━━━━━━━━━━━
+
+Current collection section is good but needs more editorial sophistication.
+
+Improve layout rhythm.
+
+Avoid perfect repetitive grids.
+
+Introduce:
+- mixed image sizing
+- asymmetry
+- editorial spacing
+
+The section should feel curated like a luxury campaign.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🖼 LOOKBOOK SECTION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Enhance lookbook section.
+
+Style:
+- fashion editorial
+- premium photography gallery
+- luxury magazine feel
+
+Hover effects:
+- soft zoom
+- overlay fade
+
+Avoid borders and clutter.
+
+━━━━━━━━━━━━━━━━━━━━━━
+📦 FULL COLLECTION EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━
+
+The “View Full Collection” interaction must feel premium.
+
+Do NOT redirect to an unfinished page.
+
+BEST IMPLEMENTATION:
+- fullscreen overlay modal
+OR
+- elegant dynamic expansion
+
+Requirements:
+- smooth transition
+- blurred background
+- immersive browsing
+
+Products should show:
+- image
+- product name
+- category
+
+NO pricing.
+NO weight.
+NO ecommerce feel.
+
+━━━━━━━━━━━━━━━━━━━━━━
+💎 PRODUCT EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━
+
+Products are showcase-only.
+
+Remove:
+- price
+- weight
+- commercial elements
+
+Replace with:
+- “Available upon inquiry”
+
+Product modal should contain:
+- product name
+- craftsmanship notes
+- material
+- short storytelling description
+
+CTA:
+- “Inquire via WhatsApp →”
+- “Book a Private Viewing →”
+
+━━━━━━━━━━━━━━━━━━━━━━
+🧠 PRESTIGE PSYCHOLOGY
+━━━━━━━━━━━━━━━━━━━━━━
+
+Add subtle luxury trust cues:
+
+Examples:
+- “Established in Hyderabad • Since 1985”
+- “Handcrafted in limited quantities”
+- “By Appointment Only”
+- “Crafted to be passed through generations”
+
+Use sparingly.
+
+━━━━━━━━━━━━━━━━━━━━━━
+📞 CONSULTATION SECTION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Keep consultation section integrated into homepage.
+
+Refine:
+- form styling
+- spacing
+- responsiveness
+- typography
+- CTA clarity
+
+The section should feel:
+- personal
+- premium
+- calm
+
+━━━━━━━━━━━━━━━━━━━━━━
+📱 WHATSAPP BUTTON
+━━━━━━━━━━━━━━━━━━━━━━
+
+Refine floating WhatsApp button.
+
+Requirements:
+- smaller size
+- softer gold tone
+- elegant shadow
+- subtle hover
+
+Avoid loud appearance.
+
+━━━━━━━━━━━━━━━━━━━━━━
+🧩 ADMIN PANEL
+━━━━━━━━━━━━━━━━━━━━━━
+
+Keep simple admin dashboard at:
+/admin
+
+Admin can:
+- add products
+- edit products
+- delete products
+- update collection details
+
+Fields:
+- name
+- category
+- image
+- description
+- craftsmanship notes
+
+Changes must reflect instantly.
+
+Simple implementation is fine for now.
+
+━━━━━━━━━━━━━━━━━━━━━━
+⚡ PERFORMANCE & QUALITY
+━━━━━━━━━━━━━━━━━━━━━━
+
+Website must:
+- load smoothly
+- feel responsive
+- have optimized images
+- avoid layout shifts
+- use lazy loading
+- maintain animation performance
+
+Fix ALL:
+- responsiveness issues
+- alignment issues
+- overflow bugs
+- spacing inconsistencies
+- broken interactions
+
+━━━━━━━━━━━━━━━━━━━━━━
+🏁 FINAL EXPERIENCE GOAL
+━━━━━━━━━━━━━━━━━━━━━━
+
+The user should feel:
+
+“I am entering a refined luxury jewelry house.”
+
+NOT:
+- an online store
+- a template
+- a flashy modern landing page
+
+The experience must feel:
+- timeless
+- cinematic
+- premium
+- trustworthy
+- emotionally refined
+
+Everything should feel intentional.
+Nothing should feel excessive.

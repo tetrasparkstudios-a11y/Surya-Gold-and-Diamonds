@@ -1,59 +1,103 @@
-import { motion } from "framer-motion";
 import { FaInstagram, FaFacebookF, FaWhatsapp } from "react-icons/fa";
 import logoLockup from "@assets/IMG-20250307-WA0001_1777329876709.jpg";
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background py-24 px-6">
+    <footer className="bg-foreground text-background py-20 md:py-24 px-5 md:px-8">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-8 mb-20">
-          <div className="md:col-span-2 pr-8">
-            <img src={logoLockup} alt="Surya Gold & Diamonds" className="w-48 mb-8 object-contain mix-blend-screen opacity-90 invert grayscale brightness-0 contrast-200" style={{ filter: "invert(1) brightness(0.9)" }} />
-            <h2 className="font-serif text-3xl uppercase tracking-widest mb-6">Where Gold Becomes Legacy.</h2>
-            <p className="text-background/60 max-w-sm leading-relaxed font-light">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
+
+          {/* Brand column */}
+          <div className="md:col-span-5 lg:col-span-4">
+            {/* Logo — forced white via CSS filter so it never shows blue tones */}
+            <img
+              src={logoLockup}
+              alt="Surya Gold & Diamonds"
+              className="h-14 w-auto mb-7 object-contain"
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
+            <p className="text-[10px] uppercase tracking-widest text-primary mb-4">
+              Established 1985 · Hyderabad
+            </p>
+            <p className="text-background/55 max-w-xs leading-relaxed font-light text-sm">
               Generations of trust and master craftsmanship. Creating heirloom pieces meant to be worn, loved, and passed down across decades.
             </p>
-            <div className="flex space-x-6 mt-8">
-              <a href="#" className="text-background/60 hover:text-primary transition-colors"><FaInstagram size={20} /></a>
-              <a href="#" className="text-background/60 hover:text-primary transition-colors"><FaFacebookF size={20} /></a>
-              <a href="https://wa.me/917093335656" className="text-background/60 hover:text-primary transition-colors"><FaWhatsapp size={20} /></a>
+            <div className="flex gap-5 mt-7">
+              <a href="#" aria-label="Instagram" className="text-background/45 hover:text-primary transition-colors duration-400">
+                <FaInstagram size={18} />
+              </a>
+              <a href="#" aria-label="Facebook" className="text-background/45 hover:text-primary transition-colors duration-400">
+                <FaFacebookF size={18} />
+              </a>
+              <a
+                href="https://wa.me/917093335656"
+                aria-label="WhatsApp"
+                className="text-background/45 hover:text-primary transition-colors duration-400"
+              >
+                <FaWhatsapp size={18} />
+              </a>
             </div>
           </div>
-          
-          <div>
-            <h3 className="font-serif text-lg tracking-widest uppercase mb-6 text-primary">Explore</h3>
-            <ul className="space-y-4 text-sm tracking-wider text-background/60">
-              <li><a href="/#collections" className="hover:text-primary transition-colors">Collections</a></li>
-              <li><a href="/#atelier" className="hover:text-primary transition-colors">The Heritage</a></li>
-              <li><a href="/#lookbook" className="hover:text-primary transition-colors">Lookbook</a></li>
-              <li><a href="/#contact" className="hover:text-primary transition-colors">Private Viewing</a></li>
+
+          {/* Spacer */}
+          <div className="hidden lg:block lg:col-span-2" />
+
+          {/* Explore links */}
+          <div className="md:col-span-3 lg:col-span-3">
+            <h3 className="font-serif text-sm tracking-[0.2em] uppercase mb-6 text-primary">Explore</h3>
+            <ul className="space-y-3.5 text-xs tracking-[0.14em] uppercase text-background/55">
+              {[
+                { label: "Collections",    href: "/#collections" },
+                { label: "The Heritage",   href: "/#atelier" },
+                { label: "Lookbook",       href: "/#lookbook" },
+                { label: "Private Viewing",href: "/#contact" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href} className="hover:text-primary transition-colors duration-400">
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-          
-          <div>
-            <h3 className="font-serif text-lg tracking-widest uppercase mb-6 text-primary">Contact</h3>
-            <ul className="space-y-4 text-sm tracking-wider text-background/60 font-light">
-              <li><span className="uppercase text-xs tracking-widest block text-background/40 mb-1">Address</span>
-                Flat No. 103, My Adobe The Sirius,<br/>
-                Suryodaya Colony, Bandlaguda,<br/>
-                Ranga Reddy (D), Telangana, India
+
+          {/* Contact details */}
+          <div className="md:col-span-4 lg:col-span-3">
+            <h3 className="font-serif text-sm tracking-[0.2em] uppercase mb-6 text-primary">Contact</h3>
+            <ul className="space-y-5 text-sm font-light text-background/55">
+              <li>
+                <span className="uppercase text-[9px] tracking-widest block text-background/35 mb-1.5">Showroom</span>
+                <span className="leading-relaxed">
+                  Flat No. 103, My Adobe The Sirius,<br />
+                  Suryodaya Colony, Bandlaguda,<br />
+                  Ranga Reddy (D), Telangana, India
+                </span>
               </li>
-              <li className="pt-2"><span className="uppercase text-xs tracking-widest block text-background/40 mb-1">Email</span>
-                <a href="mailto:suryagold2024@gmail.com" className="hover:text-primary transition-colors">suryagold2024@gmail.com</a>
+              <li>
+                <span className="uppercase text-[9px] tracking-widest block text-background/35 mb-1.5">Email</span>
+                <a href="mailto:suryagold2024@gmail.com" className="hover:text-primary transition-colors duration-400">
+                  suryagold2024@gmail.com
+                </a>
               </li>
-              <li className="pt-2"><span className="uppercase text-xs tracking-widest block text-background/40 mb-1">Phone</span>
-                <a href="tel:+917093335656" className="hover:text-primary transition-colors">+91 70933 35656</a><br/>
-                <a href="tel:+919490032898" className="hover:text-primary transition-colors">+91 94900 32898</a>
+              <li>
+                <span className="uppercase text-[9px] tracking-widest block text-background/35 mb-1.5">Phone</span>
+                <a href="tel:+917093335656" className="block hover:text-primary transition-colors duration-400">
+                  +91 70933 35656
+                </a>
+                <a href="tel:+919490032898" className="block hover:text-primary transition-colors duration-400">
+                  +91 94900 32898
+                </a>
               </li>
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row items-center justify-between text-xs tracking-widest text-background/40">
+
+        {/* Bottom bar */}
+        <div className="border-t border-background/15 pt-7 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] tracking-widest text-background/35">
           <p>&copy; {new Date().getFullYear()} SURYA GOLD & DIAMONDS. ALL RIGHTS RESERVED.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-primary transition-colors">PRIVACY</a>
-            <a href="#" className="hover:text-primary transition-colors">TERMS</a>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-primary transition-colors duration-400">PRIVACY</a>
+            <a href="#" className="hover:text-primary transition-colors duration-400">TERMS</a>
           </div>
         </div>
       </div>
