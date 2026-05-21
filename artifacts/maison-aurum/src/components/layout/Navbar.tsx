@@ -28,28 +28,28 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           useSolid
-            ? "bg-background/92 backdrop-blur-md py-3 shadow-[0_1px_0_rgba(0,0,0,0.06)]"
-            : "bg-transparent py-7"
+            ? "bg-background/70 backdrop-blur-xl py-4.5 border-b border-primary/5 shadow-[0_4px_30px_rgba(0,0,0,0.015)]"
+            : "bg-transparent py-7.5 border-b border-transparent"
         }`}
       >
         <div className="container mx-auto px-5 md:px-8 flex items-center justify-between">
 
           {/* Brand mark */}
           <Link href="/" className="group flex items-center gap-3.5">
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/95 shadow-sm ring-1 ring-primary/20 overflow-hidden shrink-0">
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded-[2px] bg-[#fafaf9] shadow-sm border border-black/5 overflow-hidden shrink-0">
               <img
                 src={logoMark}
                 alt="Surya Gold & Diamonds"
-                className="w-8 h-8 object-contain"
+                className="w-7 h-7 object-contain"
               />
             </span>
             <span
-              className={`font-serif text-sm md:text-base lg:text-[17px] tracking-[0.22em] uppercase hidden sm:block transition-colors duration-500 ${
+              className={`font-serif text-[12px] md:text-sm tracking-[0.26em] uppercase hidden sm:block transition-colors duration-500 font-light ${
                 useSolid
-                  ? "text-foreground"
-                  : "text-background drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)]"
+                  ? "text-foreground/90"
+                  : "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]"
               } group-hover:text-primary`}
             >
               SURYA GOLD <span className="text-primary">&amp;</span> DIAMONDS
@@ -57,15 +57,15 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-9 lg:gap-11">
+          <nav className="hidden md:flex items-center gap-11 lg:gap-14">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`nav-underline text-[11px] tracking-[0.22em] uppercase transition-all duration-400 hover:text-primary hover:tracking-[0.26em] ${
+                className={`nav-underline text-[10px] tracking-[0.25em] uppercase font-light transition-colors duration-500 hover:text-primary ${
                   useSolid
                     ? "text-foreground/75"
-                    : "text-background/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)]"
+                    : "text-white/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)]"
                 }`}
               >
                 {link.name}
@@ -78,7 +78,7 @@ export function Navbar() {
             className={`md:hidden p-2 -mr-1 transition-colors ${
               useSolid
                 ? "text-foreground"
-                : "text-background drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)]"
+                : "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]"
             }`}
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Open menu"
