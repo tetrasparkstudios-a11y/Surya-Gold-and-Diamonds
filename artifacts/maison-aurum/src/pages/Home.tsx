@@ -13,24 +13,24 @@ import { X } from "lucide-react";
 
 // Standard fade-up — slow, deliberate
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20, filter: "blur(3px)" },
   visible: {
-    opacity: 1, y: 0,
-    transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
 const stagger: Variants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.14 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
 // Editorial reveal — opacity + gentle lift, slower cinematic pacing
 const editorialReveal: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
   visible: {
-    opacity: 1, y: 0,
-    transition: { duration: 1.5, ease: [0.16, 1, 0.3, 1] }
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
@@ -38,14 +38,16 @@ const editorialReveal: Variants = {
 const textClipReveal: Variants = {
   hidden: {
     clipPath: "inset(100% 0 0 0)",
-    y: 35,
-    opacity: 0
+    y: 20,
+    opacity: 0,
+    filter: "blur(3px)"
   },
   visible: {
     clipPath: "inset(0% 0 0 0)",
     y: 0,
     opacity: 1,
-    transition: { duration: 1.8, ease: [0.16, 1, 0.3, 1] }
+    filter: "blur(0px)",
+    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
@@ -84,7 +86,7 @@ const heroCtaReveal: Variants = {
 
 const staggerReveal: Variants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.16 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.18 } }
 };
 
 // Section-level cinematic entrance — very slow, immersive
@@ -117,8 +119,8 @@ interface ProductCardProps {
 }
 
 const imgHoverVariants = {
-  rest: { scale: 1.12 },
-  hover: { scale: 1.18 }
+  rest: { scale: 1 },
+  hover: { scale: 1.03 }
 };
 
 function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
@@ -128,8 +130,7 @@ function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
     offset: ["start end", "end start"]
   });
   const ySmooth = useSpring(scrollYProgress, { stiffness: 45, damping: 25 });
-  // Map parallax travel: stronger premium parallax (10-14%). Total travel: 12% (from -6% to 6%)
-  const yImage = useTransform(ySmooth, [0, 1], ["-6%", "6%"]);
+  const yImage = useTransform(ySmooth, [0, 1], ["-5%", "5%"]);
 
   return (
     <motion.div
@@ -142,9 +143,9 @@ function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
           transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
         },
         hover: {
-          y: -6,
-          scale: 1.008,
-          transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+          y: -4,
+          scale: 1.005,
+          transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
         }
       }}
       initial="hidden"
@@ -158,7 +159,7 @@ function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
       {/* Image container */}
       <div className={`relative overflow-hidden bg-background mb-5
         shadow-[0_4px_20px_rgba(0,0,0,0.02)]
-        group-hover:shadow-[0_40px_80px_rgba(212,163,42,0.06),0_12px_24px_rgba(0,0,0,0.05)]
+        group-hover:shadow-[0_20px_60px_rgba(212,163,42,0.05),0_8px_20px_rgba(0,0,0,0.04)]
         transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isFeature ? "aspect-[3/2] md:aspect-[16/11]" : "aspect-[4/5]"
       }`}>
@@ -170,7 +171,7 @@ function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
           variants={imgHoverVariants}
           initial="rest"
           transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-x-0 -top-[10%] w-full h-[120%] object-cover"
+          className="absolute inset-x-0 -top-[5%] w-full h-[110%] object-cover image-luxury-grade"
         />
 
         {/* Near-imperceptible photographic grain overlay */}
@@ -192,17 +193,19 @@ function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
 
         {/* Hover reveal — slow, cinematic view hint */}
         <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-20">
-          <span className="text-[9px] uppercase tracking-[0.32em] text-white bg-black/40 backdrop-blur-md px-6 py-2.5 rounded-none border border-white/8 translate-y-2 group-hover:translate-y-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]">View Piece</span>
+          <span className="text-[9px] uppercase tracking-[0.32em] text-white bg-black/35 backdrop-blur-md px-5 py-2 rounded-none border border-white/6 translate-y-2 group-hover:translate-y-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]">View Piece</span>
         </div>
       </div>
 
       {/* Caption — fixed height to keep grid rhythm */}
       <div className="min-h-[5rem] relative z-20">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-primary mb-1.5 transition-transform duration-700 ease-out group-hover:-translate-y-1">{product.category}</p>
-        <h3 className="font-serif text-xl md:text-[1.35rem] text-foreground transition-all duration-700 ease-out group-hover:-translate-y-0.5 group-hover:text-primary leading-snug line-clamp-2">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-primary/90 mb-2 transition-transform duration-[800ms] ease-out group-hover:-translate-y-[2px]">{product.category}</p>
+        <h3 className="font-serif text-xl md:text-2xl text-foreground transition-all duration-[800ms] ease-out group-hover:-translate-y-[2px] group-hover:text-primary leading-snug line-clamp-2">
           {product.name}
         </h3>
-        <p className="text-[9px] uppercase tracking-widest text-foreground/30 mt-2">Available upon inquiry</p>
+        <p className="text-[9px] uppercase tracking-[0.18em] text-foreground/45 mt-2 transition-transform duration-[800ms] ease-out group-hover:-translate-y-[2px]">
+          {product.karat}{product.clarity ? ` · ${product.clarity}` : ''}
+        </p>
       </div>
     </motion.div>
   );
@@ -213,47 +216,51 @@ export default function Home() {
   const [selectedProduct, setSelectedProduct]     = useState<Product | null>(null);
   const [fullCollectionOpen, setFullCollectionOpen] = useState(false);
 
-  /* Hero parallax — spring-smoothed for cinematic feel (subtle 5% travel) */
+  // Featured product — use explicit flag, fallback to first
+  const featuredProduct = products.find(p => p.featured) || products[0] || null;
+  const supportingProducts = products.filter(p => p.id !== featuredProduct?.id);
+
+  /* Hero parallax — spring-smoothed for cinematic feel (subtle 4-5% travel) */
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroProgressSmooth = useSpring(heroProgress, { stiffness: 38, damping: 22, mass: 1 });
-  const heroY       = useTransform(heroProgressSmooth, [0, 1], ["-2.5%", "2.5%"]);
+  const heroY       = useTransform(heroProgressSmooth, [0, 1], ["-2%", "2%"]);
   const heroOpacity = useTransform(heroProgress, [0, 0.75], [1, 0]);
 
-  /* Atelier parallax — spring-smoothed (subtle 6% travel) */
+  /* Atelier parallax — spring-smoothed (subtle 9% travel) */
   const atelierImgRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: atelierProgress } = useScroll({ target: atelierImgRef, offset: ["start end", "end start"] });
   const atelierProgressSmooth = useSpring(atelierProgress, { stiffness: 42, damping: 24, mass: 1 });
-  const atelierY = useTransform(atelierProgressSmooth, [0, 1], ["-3%", "3%"]);
+  const atelierY = useTransform(atelierProgressSmooth, [0, 1], ["-4.5%", "4.5%"]);
 
-  /* Campaign spread 1 parallax (Bridal Collection: subtle 7% travel) */
+  /* Campaign spread 1 parallax (Bridal Collection: 11% travel) */
   const spread1Ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress: spread1Progress } = useScroll({ target: spread1Ref, offset: ["start end", "end start"] });
   const spread1ProgressSmooth = useSpring(spread1Progress, { stiffness: 42, damping: 22, mass: 1 });
-  const spread1Y = useTransform(spread1ProgressSmooth, [0, 1], ["-3.5%", "3.5%"]);
+  const spread1Y = useTransform(spread1ProgressSmooth, [0, 1], ["-5.5%", "5.5%"]);
 
-  /* Campaign spread 2 parallax (Campaign everyday: 14% travel) */
+  /* Campaign spread 2 parallax (Campaign everyday: 11% travel) */
   const spread2ImgRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: spread2Progress } = useScroll({ target: spread2ImgRef, offset: ["start end", "end start"] });
   const spread2ProgressSmooth = useSpring(spread2Progress, { stiffness: 44, damping: 24, mass: 1 });
-  const spread2Y = useTransform(spread2ProgressSmooth, [0, 1], ["-7%", "7%"]);
+  const spread2Y = useTransform(spread2ProgressSmooth, [0, 1], ["-5.5%", "5.5%"]);
 
-  /* Campaign spread 3 parallax — craftsmanship (Campaign atelier: 13% travel) */
+  /* Campaign spread 3 parallax — craftsmanship (Campaign atelier: 12% travel) */
   const spread3Ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress: spread3Progress } = useScroll({ target: spread3Ref, offset: ["start end", "end start"] });
   const spread3SmoothProgress = useSpring(spread3Progress, { stiffness: 38, damping: 20, mass: 1 });
-  const spread3ImageY = useTransform(spread3SmoothProgress, [0, 1], ["-6.5%", "6.5%"]);
+  const spread3ImageY = useTransform(spread3SmoothProgress, [0, 1], ["-6%", "6%"]);
   const spread3TextY  = useTransform(spread3SmoothProgress, [0, 1], ["3%", "-3%"]);
   const spread3RightY = useTransform(spread3SmoothProgress, [0, 1], ["4%", "-4%"]);
 
   return (
     <div className="min-h-screen bg-background w-full overflow-x-hidden relative">
       {/* ── Global cinematic film grain + edge vignette ── */}
-      <div className="pointer-events-none fixed inset-0 z-[99999] mix-blend-overlay opacity-[0.032]"
+      <div className="pointer-events-none fixed inset-0 z-[99999] mix-blend-overlay opacity-[0.025]"
         style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }}
       />
       <div className="pointer-events-none fixed inset-0 z-[99998]"
-        style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.22) 100%)" }}
+        style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.18) 100%)" }}
       />
       <Navbar />
 
@@ -262,12 +269,12 @@ export default function Home() {
         href="https://wa.me/917093335656?text=Hello%20Surya%20Gold%20%26%20Diamonds%2C%20I%27d%20like%20to%20enquire%20about%20a%20piece."
         target="_blank" rel="noopener noreferrer"
         aria-label="Contact on WhatsApp"
-        className="fixed bottom-6 right-6 md:right-8 z-50 w-11 h-11 rounded-full flex items-center justify-center
-                   bg-background/80 backdrop-blur-md text-primary border border-primary/25 shadow-[0_4px_24px_rgba(212,163,42,0.12)]
-                   hover:border-primary/60 hover:shadow-[0_4px_32px_rgba(212,163,42,0.22)] hover:scale-[1.05]
-                   transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] pulse-ring"
+        className="fixed bottom-6 right-6 md:right-8 z-50 w-10 h-10 rounded-full flex items-center justify-center
+                   bg-[#FAF7F2] text-primary border border-[#d4a32a]/20 shadow-[0_2px_16px_rgba(0,0,0,0.06)]
+                   hover:bg-[#d4a32a] hover:text-white hover:border-[#d4a32a] hover:shadow-[0_4px_24px_rgba(212,163,42,0.2)]
+                   transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
       >
-        <FaWhatsapp className="w-5 h-5 animate-pulse" style={{ animationDuration: '4s' }} />
+        <FaWhatsapp className="w-[18px] h-[18px]" />
       </a>
 
       {/* ══════════════════════════════════════
@@ -286,7 +293,7 @@ export default function Home() {
           <img
             src="/images/hero.png"
             alt="Surya Gold & Diamonds"
-            className="hero-zoom-breathe w-full h-full object-cover opacity-92"
+            className="hero-zoom-breathe w-full h-full object-cover opacity-92 image-luxury-grade"
           />
 
           {/* Top-down dark overlay for navbar blending */}
@@ -337,7 +344,7 @@ export default function Home() {
               variants={heroSubtitleReveal}
               initial="hidden"
               animate="visible"
-              className="text-primary text-[10px] md:text-[11px] tracking-[0.28em] uppercase mb-6 font-light"
+              className="text-primary text-[11px] md:text-[12px] tracking-[0.28em] uppercase mb-6 font-light"
             >
               Established 1985 &ensp;·&ensp; Hyderabad
             </motion.p>
@@ -346,7 +353,7 @@ export default function Home() {
               variants={heroTitleReveal}
               initial="hidden"
               animate="visible"
-              className="font-serif text-[clamp(2.4rem,6.5vw,4.75rem)] text-white font-light leading-[1.16] tracking-wide [text-shadow:0_2px_18px_rgba(0,0,0,0.25)]"
+              className="font-serif text-[clamp(2.6rem,7vw,5.2rem)] text-white font-light leading-[1.12] tracking-wide [text-shadow:0_2px_18px_rgba(0,0,0,0.25)]"
             >
               Where Gold<br className="hidden sm:block" /> Becomes Legacy.
             </motion.h1>
@@ -378,16 +385,13 @@ export default function Home() {
           transition={{ delay: 2.4, duration: 1.4 }}
           className="absolute bottom-8 right-5 md:right-8 hidden md:flex flex-col items-center gap-2"
         >
-          <span className="text-[9px] uppercase tracking-[0.25em] text-white/28 -rotate-90 origin-center mb-6">Scroll</span>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-white/28 -rotate-90 origin-center mb-6">Scroll</span>
           <div className="w-px h-10 bg-white/8" />
         </motion.div>
       </section>
 
-      {/* ── Cinematic section bridge: hero → heritage — atmospheric fade ── */}
-      <div className="relative z-10">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/3.5 to-transparent" />
-        <div className="h-7 bg-gradient-to-b from-background/0 to-background pointer-events-none" />
-      </div>
+      {/* ── Clean whitespace bridge: hero → heritage ── */}
+      <div className="relative z-10 py-4" />
 
       {/* ══════════════════════════════════════
           2. ATELIER / PHILOSOPHY
@@ -430,9 +434,9 @@ export default function Home() {
               <motion.div variants={editorialReveal} className="mt-9">
                 <button
                   onClick={scrollToContact}
-                  className="cta-shimmer inline-block bg-foreground text-background px-9 py-3.5 uppercase tracking-[0.22em] text-[11px] hover:bg-primary transition-colors duration-700"
+                  className="cta-shimmer btn-luxury inline-block bg-foreground text-background px-9 py-3.5 uppercase tracking-[0.22em] text-[11px]"
                 >
-                  Book a Viewing
+                  Request a Private Viewing
                 </button>
               </motion.div>
             </motion.div>
@@ -451,8 +455,8 @@ export default function Home() {
                 alt="Master Craftsmanship"
                 loading="lazy" decoding="async"
                 style={{ y: atelierY }}
-                className="absolute inset-x-0 -top-[4%] w-full h-[108%] object-cover transition-transform duration-[3.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
-                whileHover={{ scale: 1.05 }}
+                className="absolute inset-x-0 -top-[4%] w-full h-[108%] object-cover image-luxury-grade transition-transform duration-[3.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                whileHover={{ scale: 1.03 }}
               />
               {/* Warm gold catch-light — top-left editorial */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_15%,rgba(212,163,42,0.055),transparent_52%)] mix-blend-color-dodge pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity duration-[1500ms]" />
@@ -468,16 +472,16 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* ── Atmospheric bridge: heritage → MMTC ── */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+      {/* ── Clean whitespace bridge: heritage → MMTC ── */}
+      <div className="py-2" />
 
       {/* ══════════════════════════════════════
           3. MMTC-PAMP PARTNERSHIP
          ══════════════════════════════════════ */}
       <MMTCSection />
 
-      {/* ── Atmospheric bridge: MMTC → collections ── */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+      {/* ── Clean whitespace bridge: MMTC → collections ── */}
+      <div className="py-2" />
 
       {/* ══════════════════════════════════════
           4. COLLECTIONS — editorial grid
@@ -488,7 +492,7 @@ export default function Home() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="py-16 md:py-24 bg-secondary relative z-10 cinematic-section"
+        className="py-20 md:py-28 bg-secondary relative z-10 cinematic-section"
       >
         <div className="container mx-auto px-5 md:px-8">
 
@@ -497,39 +501,98 @@ export default function Home() {
             variants={staggerReveal}
             initial="hidden" whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-12 gap-6"
+            className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 gap-6"
           >
             <div className="max-w-lg">
-              <motion.p variants={editorialReveal} className="text-primary text-[10px] uppercase tracking-widest mb-4">The Collection</motion.p>
-              <motion.h2 variants={textClipReveal} className="font-serif text-[clamp(1.9rem,4vw,3.2rem)] leading-tight tracking-wide">Curated Masterpieces</motion.h2>
-              <motion.p variants={editorialReveal} className="text-foreground/55 font-light text-sm mt-4 leading-relaxed">
+              <motion.p variants={editorialReveal} className="label-luxury text-primary/90 mb-4">The Collection</motion.p>
+              <motion.h2 variants={textClipReveal} className="font-serif heading-display text-[clamp(2rem,4.5vw,3.4rem)]">Curated Masterpieces</motion.h2>
+              <motion.p variants={editorialReveal} className="text-foreground/55 font-light text-sm mt-5 leading-relaxed">
                 An intimately selected presentation of our most sought-after works, embodying the pinnacle of Indian craftsmanship.
               </motion.p>
             </div>
             <motion.button
               variants={editorialReveal}
               onClick={() => setFullCollectionOpen(true)}
-              className="nav-underline border-b border-foreground/50 text-foreground/70 pb-0.5 uppercase tracking-[0.22em] text-[10px] hover:text-primary hover:border-primary transition-all duration-500 shrink-0"
+              className="luxury-link border-b border-foreground/40 text-foreground/65 pb-0.5 uppercase tracking-[0.22em] text-[10px] hover:text-primary hover:border-primary transition-all duration-500 shrink-0"
             >
               View Full Collection
             </motion.button>
           </motion.div>
 
-          {/* Editorial asymmetric grid:
-              Desktop: col 1 is wide (span-2, landscape) | cols 2–3 are portrait
-              Mobile: single column */}
+          {/* ─── Featured Masterpiece ─── */}
+          {featuredProduct && (
+            <motion.div
+              variants={editorialReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className="mb-20 md:mb-24"
+            >
+              <div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-0 group cursor-pointer overflow-hidden"
+                onClick={() => setSelectedProduct(featuredProduct)}
+              >
+                {/* Featured image — large editorial */}
+                <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:min-h-[520px] bg-background">
+                  <motion.img
+                    src={featuredProduct.image}
+                    alt={featuredProduct.name}
+                    loading="lazy" decoding="async"
+                    initial={{ scale: 1.06 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 4, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-0 w-full h-full object-cover image-luxury-grade transition-transform duration-[3s] ease-out group-hover:scale-[1.03]"
+                  />
+                  {/* Vignette */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.15)_100%)] pointer-events-none" />
+                  {/* Bottom gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
+                  {/* Ring */}
+                  <div className="absolute inset-0 ring-1 ring-inset ring-foreground/4 group-hover:ring-primary/12 transition-all duration-[1000ms] pointer-events-none" />
+                  {/* Hover label */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-[800ms] z-20">
+                    <span className="text-[9px] uppercase tracking-[0.32em] text-white bg-black/35 backdrop-blur-md px-5 py-2 border border-white/6">View Masterpiece</span>
+                  </div>
+                </div>
+
+                {/* Featured text — editorial story */}
+                <div className="bg-background p-10 md:p-14 lg:p-16 flex flex-col justify-center">
+                  <p className="label-luxury text-primary mb-5">{featuredProduct.category}</p>
+                  <h3 className="font-serif text-3xl md:text-4xl lg:text-[2.8rem] text-foreground leading-[1.12] tracking-wide mb-6 group-hover:text-primary transition-colors duration-[800ms]">
+                    {featuredProduct.name}
+                  </h3>
+                  <div className="w-10 h-px bg-primary/30 mb-6" />
+                  <p className="text-foreground/55 font-light text-[14.5px] leading-[1.75] mb-8 max-w-md">
+                    {featuredProduct.description}
+                  </p>
+                  <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.25em] text-foreground/40">
+                    <span>{featuredProduct.karat}</span>
+                    {featuredProduct.clarity && (
+                      <>
+                        <span className="text-primary/30">·</span>
+                        <span>{featuredProduct.clarity}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ─── Supporting Collection ─── */}
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7"
+            className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12"
           >
-            {products.map((product, idx) => (
+            {supportingProducts.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
-                isFeature={idx === 0}
+                isFeature={false}
                 onClick={() => setSelectedProduct(product)}
               />
             ))}
@@ -537,8 +600,8 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* ── Cinematic bridge: collections → trust pillars ── */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/3 to-transparent" />
+      {/* ── Clean whitespace bridge: collections → trust pillars ── */}
+      <div className="py-2" />
 
       {/* ══════════════════════════════════════
           5. TRUST PILLARS (Maison Commitments)
@@ -563,10 +626,10 @@ export default function Home() {
           >
             <div className="flex items-center justify-center gap-5 mb-5">
               <div className="h-px w-8 bg-primary/45 shrink-0" />
-              <motion.p variants={editorialReveal} className="text-primary text-[10px] uppercase tracking-[0.38em] font-medium">Maison Pillars</motion.p>
+              <motion.p variants={editorialReveal} className="label-luxury text-primary/90">Maison Pillars</motion.p>
               <div className="h-px w-8 bg-primary/45 shrink-0" />
             </div>
-            <motion.h2 variants={textClipReveal} className="font-serif text-[clamp(2rem,4vw,3.2rem)] leading-tight tracking-wide font-light">
+            <motion.h2 variants={textClipReveal} className="font-serif heading-display text-[clamp(2rem,4.5vw,3.4rem)]">
               Guarantees of the Maison
             </motion.h2>
           </motion.div>
@@ -576,42 +639,47 @@ export default function Home() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-40px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-foreground/[0.04] bg-foreground/[0.001]"
+            className="grid grid-cols-1 md:grid-cols-3 gap-0"
           >
             {PILLARS.map((pillar, i) => (
               <motion.div
                 key={i}
                 variants={editorialReveal}
-                className="p-8 md:p-12 space-y-6 group border-b md:border-b-0 md:border-r border-foreground/[0.04] last:border-b-0 last:border-r-0 hover:bg-foreground/[0.005] transition-all duration-[1000ms] ease-out relative overflow-hidden"
+                className={`p-10 md:p-14 space-y-6 group transition-all duration-[1000ms] ease-out relative overflow-hidden hover:bg-primary/[0.02] ${
+                  i < PILLARS.length - 1 ? 'border-b md:border-b-0 md:border-r border-primary/8' : ''
+                }`}
               >
-                {/* Micro accent corner light */}
-                <div className="absolute top-0 right-0 w-16 h-16 bg-[radial-gradient(circle_at_top_right,rgba(212,163,42,0.018),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                
                 {/* Index number & dot */}
                 <div className="flex justify-between items-start">
-                  <div className="font-serif text-5xl md:text-6xl text-foreground/[0.07] group-hover:text-primary/18 transition-all duration-[1000ms] ease-out font-extralight select-none">
+                  <div className="font-serif text-5xl md:text-6xl text-primary/15 group-hover:text-primary/35 transition-all duration-[1000ms] ease-out font-extralight select-none">
                     0{i + 1}
                   </div>
                   <span className="w-1.5 h-1.5 rounded-none bg-primary/40 group-hover:bg-primary transition-colors duration-[1000ms]" />
                 </div>
 
-                <div className="space-y-3">
-                  <h3 className="font-serif text-lg md:text-xl tracking-wider text-foreground/90 uppercase font-light group-hover:text-primary transition-colors duration-[1000ms]">
+                {/* Gold rule */}
+                <div className="w-10 h-px bg-primary/30 group-hover:w-14 transition-all duration-[1000ms] ease-out" />
+
+                <div className="space-y-4">
+                  <h3 className="font-serif text-xl md:text-2xl tracking-wide text-foreground/95 uppercase font-normal group-hover:text-primary transition-colors duration-[1000ms]">
                     {pillar.title}
                   </h3>
-                  <div className="w-6 h-px bg-primary/20 group-hover:w-12 transition-all duration-[1000ms] ease-out" />
-                  <p className="text-foreground/50 group-hover:text-foreground/70 transition-all duration-[1000ms] ease-out font-light text-[13.5px] leading-relaxed max-w-[27ch]">
+                  <div className="w-8 h-px bg-primary/20 group-hover:w-20 transition-all duration-[1000ms] ease-out" />
+                  <p className="text-foreground/55 group-hover:text-foreground/75 transition-all duration-[1000ms] ease-out font-light text-[14px] leading-[1.75] max-w-[30ch]">
                     {pillar.desc}
                   </p>
                 </div>
+
+                {/* Subtle elevation shadow on hover */}
+                <div className="absolute inset-0 shadow-none group-hover:shadow-[0_8px_40px_rgba(212,163,42,0.04)] transition-shadow duration-[1000ms] pointer-events-none" />
               </motion.div>
             ))}
           </motion.div>
         </div>
       </motion.section>
 
-      {/* ── Section bridge: pillars → lookbook ── */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/4 to-transparent" />
+      {/* ── Clean whitespace bridge: pillars → lookbook ── */}
+      <div className="py-2" />
 
       {/* ══════════════════════════════════════
           6. LOOKBOOK — editorial campaign spread
@@ -646,11 +714,11 @@ export default function Home() {
               src="/images/lookbook-1.png"
               alt="Bridal Collection"
               loading="lazy" decoding="async"
-              initial={{ scale: 1.08 }}
+              initial={{ scale: 1.05 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 4.5, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover image-luxury-grade"
             />
             {/* Cinematic depth gradients */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
@@ -712,7 +780,7 @@ export default function Home() {
                   alt="Everyday Collection"
                   loading="lazy" decoding="async"
                   style={{ y: spread2Y }}
-                  className="absolute inset-x-0 -top-[8%] w-full h-[116%] object-cover transition-transform duration-[2.4s] ease-out group-hover:scale-[1.02]"
+                  className="absolute inset-x-0 -top-[8%] w-full h-[116%] object-cover image-luxury-grade transition-transform duration-[2.4s] ease-out group-hover:scale-[1.02]"
                 />
               </motion.div>
 
@@ -753,7 +821,7 @@ export default function Home() {
       <section ref={spread3Ref} className="relative w-full h-[70vh] md:h-[88vh] overflow-hidden bg-[#080808] z-10 isolate">
         {/* Full-bleed image with deep overlay */}
         <motion.div
-          initial={{ scale: 1.08 }}
+          initial={{ scale: 1.05 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 3, ease: "easeOut" }}
@@ -764,7 +832,7 @@ export default function Home() {
             src="/images/atelier.png"
             alt="The Atelier — Craftsmanship"
             loading="lazy" decoding="async"
-            className="w-full h-full object-cover object-[35%_55%] scale-[1.05]"
+            className="w-full h-full object-cover object-[35%_55%] scale-[1.05] image-luxury-grade"
           />
           
           {/* 1. Subtle local film grain layer */}
@@ -897,10 +965,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Cinematic bridge: campaign → consultation — atmospheric dark gradient blend ── */}
+      {/* ── Smooth transition: campaign → consultation ── */}
       <div className="relative z-10">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/2.5 to-transparent" />
-        <div className="h-10 bg-gradient-to-b from-background to-[#0c0b0a] pointer-events-none" />
+        <div className="h-10 bg-gradient-to-b from-background to-[#FAF7F2] pointer-events-none" />
       </div>
 
       {/* ══════════════════════════════════════
@@ -948,7 +1015,7 @@ export default function Home() {
                   transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
-                  className="w-full h-full object-cover transition-transform duration-[4s] ease-out group-hover:scale-[1.03]"
+                  className="w-full h-full object-cover image-luxury-grade transition-transform duration-[4s] ease-out group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
               </div>
@@ -973,7 +1040,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-                    className="font-serif text-2xl lg:text-[2.2rem] tracking-wide mb-6 text-foreground leading-[1.25] font-light"
+                    className="font-serif text-3xl lg:text-[2.8rem] tracking-wide mb-6 text-foreground leading-[1.2] font-light"
                   >
                     {selectedProduct.name}
                   </motion.h2>
@@ -1003,15 +1070,15 @@ export default function Home() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-                    className="pt-8 border-t border-primary/5 space-y-4 mb-12"
+                    className="pt-10 border-t border-primary/8 space-y-5 mb-12"
                   >
-                    <div className="flex items-center justify-between lg:justify-start lg:gap-16 py-2">
-                      <span className="text-foreground/45 uppercase tracking-[0.25em] text-[9px] font-light w-24">Material</span>
+                    <div className="flex items-center justify-between lg:justify-start lg:gap-16 py-2.5">
+                      <span className="text-foreground/40 uppercase tracking-[0.25em] text-[9px] font-light w-28">Material</span>
                       <span className="text-[13px] font-light text-foreground/80 tracking-wide">{selectedProduct.karat}</span>
                     </div>
                     {selectedProduct.clarity && (
-                      <div className="flex items-center justify-between lg:justify-start lg:gap-16 py-2 border-t border-primary/5">
-                        <span className="text-foreground/45 uppercase tracking-[0.25em] text-[9px] font-light w-24">Clarity</span>
+                      <div className="flex items-center justify-between lg:justify-start lg:gap-16 py-2.5 border-t border-primary/8">
+                        <span className="text-foreground/40 uppercase tracking-[0.25em] text-[9px] font-light w-28">Clarity</span>
                         <span className="text-[13px] font-light text-foreground/80 tracking-wide">{selectedProduct.clarity}</span>
                       </div>
                     )}
@@ -1022,12 +1089,14 @@ export default function Home() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7, duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-                    className="pt-8 border-t border-primary/5 mb-12"
+                    className="pt-10 border-t border-primary/8 mb-12"
                   >
-                    <p className="text-[9px] uppercase tracking-[0.28em] text-primary/75 mb-3.5 font-light">Atelier Notes</p>
-                    <p className="text-sm font-serif italic text-foreground/55 leading-[1.75]">
-                      {selectedProduct.craftsmanship}
-                    </p>
+                    <p className="text-[10px] uppercase tracking-[0.28em] text-primary/75 mb-4 font-light">Atelier Notes</p>
+                    <div className="border-l-2 border-primary/20 pl-5">
+                      <p className="text-sm font-serif italic text-foreground/55 leading-[1.75]">
+                        {selectedProduct.craftsmanship}
+                      </p>
+                    </div>
                   </motion.div>
 
                   {/* Inquire/Book CTAs */}
@@ -1040,7 +1109,7 @@ export default function Home() {
                     <a
                       href={`https://wa.me/917093335656?text=I'm%20interested%20in%20the%20${encodeURIComponent(selectedProduct.name)}.`}
                       target="_blank" rel="noopener noreferrer"
-                      className="cta-shimmer flex-1 bg-foreground text-background py-4 uppercase tracking-[0.22em] text-[11px] text-center hover:bg-primary hover:text-white transition-colors duration-700"
+                      className="cta-shimmer btn-luxury flex-1 bg-foreground text-background py-4 uppercase tracking-[0.22em] text-[11px] text-center"
                     >
                       Inquire via WhatsApp
                     </a>
@@ -1049,9 +1118,9 @@ export default function Home() {
                         setSelectedProduct(null);
                         setTimeout(scrollToContact, 400);
                       }}
-                      className="cta-shimmer flex-1 border border-border text-foreground py-4 uppercase tracking-[0.22em] text-[11px] hover:border-primary hover:text-primary transition-colors duration-700"
+                      className="cta-shimmer btn-luxury flex-1 border border-border text-foreground py-4 uppercase tracking-[0.22em] text-[11px]"
                     >
-                      Book a Viewing
+                      Request a Private Consultation
                     </button>
                   </motion.div>
                 </div>

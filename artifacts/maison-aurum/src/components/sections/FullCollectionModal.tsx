@@ -2,7 +2,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { motion, type Variants } from "framer-motion";
 import { Product } from "@/lib/productStore";
 import { X } from "lucide-react";
-import logoMark from "@assets/Screenshot_2025-03-27-22-34-55-57_965bbf4d18d205f782c6b8409c57_1777329866046.jpg";
+import logoMark from "@assets/surya-s-monogram.png";
 
 interface Props {
   open: boolean;
@@ -13,11 +13,11 @@ interface Props {
 
 // Snappy, clean transitions without heavy blur or aggressive vertical translation
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } 
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } 
   }
 };
 
@@ -25,7 +25,7 @@ const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.02, delayChildren: 0.04 }
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 }
   }
 };
 
@@ -38,21 +38,24 @@ const staggerContainer: Variants = {
  *   - Header/Close Button: z-index 130
  */
 export function FullCollectionModal({ open, onOpenChange, products, onSelectProduct }: Props) {
+  const featured = products[0];
+  const gallery = products.slice(1);
+
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
-        {/* 1. Background Overlay (z-index 100) — Soft background shadow, not pitch black */}
+        {/* 1. Background Overlay (z-index 100) — Soft background shadow fading in */}
         <DialogPrimitive.Overlay 
-          className="fixed inset-0 bg-black/55 backdrop-blur-[6px] transition-all duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          className="fixed inset-0 bg-black/60 backdrop-blur-[8px] transition-all duration-[1000ms] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
           style={{ zIndex: 100 }}
         />
 
-        {/* 2. Modal Container (z-index 110) — 100vw/100vh full-screen wrapper */}
+        {/* 2. Modal Container (z-index 110) — 100vw/100vh full-screen wrapper sliding up */}
         <DialogPrimitive.Content
-          className="fixed inset-0 bg-background flex flex-col focus:outline-none"
+          className="fixed inset-0 bg-background flex flex-col focus:outline-none transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-bottom-12 data-[state=open]:slide-in-from-bottom-12"
           style={{ zIndex: 110, width: "100vw", height: "100vh" }}
         >
-          <DialogPrimitive.Title className="sr-only">The Full Collection</DialogPrimitive.Title>
+          <DialogPrimitive.Title className="sr-only">The House Collection</DialogPrimitive.Title>
 
           {/* 3. Navigation / Header (z-index 130) — Locked above scroll context */}
           <div 
@@ -63,13 +66,11 @@ export function FullCollectionModal({ open, onOpenChange, products, onSelectProd
               
               {/* Brand mark */}
               <div className="flex items-center gap-3.5">
-                <span className="inline-flex items-center justify-center w-9 h-9 rounded-[2px] bg-[#fafaf9] shadow-sm border border-black/5 overflow-hidden shrink-0">
-                  <img
-                    src={logoMark}
-                    alt="Surya Gold & Diamonds"
-                    className="w-7 h-7 object-contain"
-                  />
-                </span>
+                <img
+                  src={logoMark}
+                  alt="Surya Gold & Diamonds"
+                  className="h-[38px] w-auto object-contain shrink-0"
+                />
                 <span className="font-serif text-[12px] md:text-sm tracking-[0.26em] uppercase text-foreground font-light">
                   SURYA GOLD <span className="text-primary">&amp;</span> DIAMONDS
                 </span>
@@ -95,8 +96,9 @@ export function FullCollectionModal({ open, onOpenChange, products, onSelectProd
 
           {/* 4. Content Grid Scroll Area (z-index 120) */}
           <div 
+            data-lenis-prevent
             className="flex-1 overflow-y-auto overflow-x-hidden relative"
-            style={{ zIndex: 120 }}
+            style={{ zIndex: 120, overscrollBehavior: "contain", WebkitOverflowScrolling: "touch" }}
           >
             {/* Near-imperceptible photographic grain overlay (behind grid, z-0) */}
             <div className="pointer-events-none absolute inset-0 z-0 mix-blend-overlay opacity-[0.006]"
@@ -111,65 +113,126 @@ export function FullCollectionModal({ open, onOpenChange, products, onSelectProd
             {/* Ambient warm gold wash — top-right, extremely subtle */}
             <div className="pointer-events-none absolute top-0 right-0 w-[50vw] h-[50vh] bg-[radial-gradient(ellipse_at_top_right,rgba(212,163,42,0.015),transparent_70%)] z-0" />
 
-            <div className="container mx-auto px-5 md:px-8 py-10 md:py-14 relative z-10">
+            <div className="container mx-auto px-5 md:px-8 py-16 md:py-24 relative z-10">
               <motion.div
                 variants={staggerContainer}
                 initial="hidden"
                 animate={open ? "visible" : "hidden"}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10"
               >
-                {products.map((product) => (
-                  <motion.button
-                    key={product.id}
-                    variants={fadeInUp}
-                    onClick={() => {
-                      onSelectProduct(product);
-                      onOpenChange(false);
-                    }}
-                    className="group text-left flex flex-col hover:translate-y-[-2px] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none"
-                  >
-                    <div className="relative aspect-[4/5] mb-5 overflow-hidden bg-background shadow-[0_4px_20px_rgba(0,0,0,0.02)] group-hover:shadow-[0_20px_50px_rgba(212,163,42,0.04),0_10px_30px_rgba(0,0,0,0.03)] transition-shadow duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover transition-transform duration-[3.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
-                      />
-                      
-                      {/* Photographic grain overlay */}
-                      <div className="absolute inset-0 z-10 pointer-events-none mix-blend-overlay opacity-[0.008]"
-                        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }}
-                      />
+                {/* ── Editorial Introduction ── */}
+                <motion.div variants={fadeInUp} className="mb-24 md:mb-32 text-center max-w-2xl mx-auto">
+                  <p className="text-[10px] uppercase tracking-[0.35em] text-primary/70 mb-5 font-medium">Private Exhibition</p>
+                  <h2 className="font-serif text-4xl md:text-[3.2rem] text-foreground mb-8 font-light tracking-wide leading-[1.1]">The House Collection</h2>
+                  <p className="text-foreground/55 font-light leading-[1.8] text-[14.5px]">
+                    A curated exhibition of our most exceptional creations. Handcrafted in our Hyderabad atelier, each piece is a testament to generations of uncompromising artistry.
+                  </p>
+                </motion.div>
 
-                      {/* Soft Vignette */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_65%,rgba(0,0,0,0.08)_100%)] pointer-events-none z-10 opacity-60 group-hover:opacity-85 transition-opacity duration-1000" />
-
-                      {/* Warm Candlelight highlight */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(212,163,42,0.025)_0%,transparent_55%)] mix-blend-color-dodge pointer-events-none z-10" />
-
-                      {/* Permanent subtle bottom vignette */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none z-10" />
-                      {/* Hover vignette deepens */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[900ms] ease-out pointer-events-none z-10" />
-                      <div className="absolute inset-0 ring-1 ring-inset ring-foreground/5 group-hover:ring-primary/10 transition-all duration-700 pointer-events-none z-10" />
-
-                      {/* Hover reveal overlay — slow, atmospheric view hint, no text overcrowding */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-20">
-                        <span className="text-[9px] uppercase tracking-[0.32em] text-white bg-black/45 backdrop-blur-md px-6 py-2.5 rounded-none border border-white/10">View Piece</span>
+                {/* ── Featured Masterpiece Section ── */}
+                {featured && (
+                  <motion.div variants={fadeInUp} className="mb-24 md:mb-32">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+                      <div className="lg:col-span-7">
+                        <button
+                          onClick={() => {
+                            onSelectProduct(featured);
+                            onOpenChange(false);
+                          }}
+                          className="group relative w-full aspect-[4/3] md:aspect-[3/2] overflow-hidden bg-background shadow-[0_4px_20px_rgba(0,0,0,0.02)] focus:outline-none flex"
+                        >
+                          <img
+                            src={featured.image}
+                            alt={featured.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover image-luxury-grade transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                          />
+                          {/* Grain overlay */}
+                          <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.008]"
+                            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }}
+                          />
+                          <div className="absolute inset-0 ring-1 ring-inset ring-foreground/5 group-hover:ring-primary/10 transition-all duration-[800ms] pointer-events-none" />
+                          
+                          {/* Hover reveal overlay */}
+                          <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-20">
+                            <span className="text-[9px] uppercase tracking-[0.32em] text-white bg-black/45 backdrop-blur-md px-6 py-2.5 rounded-none border border-white/10">View Masterpiece</span>
+                          </div>
+                        </button>
+                      </div>
+                      <div className="lg:col-span-5 flex flex-col justify-center">
+                        <span className="text-[10px] uppercase tracking-[0.3em] text-primary mb-3">Featured Masterpiece</span>
+                        <h3 className="font-serif text-3xl md:text-4xl text-foreground mb-6 font-normal leading-[1.15]">{featured.name}</h3>
+                        <div className="mb-6">
+                          <p className="text-[10px] uppercase tracking-[0.25em] text-foreground/50">{featured.karat} <span className="mx-2 text-primary/30">|</span> {featured.clarity}</p>
+                        </div>
+                        <p className="text-foreground/60 leading-[1.8] font-light text-[14.5px] mb-8 max-w-md">{featured.description}</p>
+                        <div className="w-12 h-px bg-primary/30 mb-8" />
+                        <p className="text-[11px] uppercase tracking-[0.2em] text-foreground/45 leading-[1.6] max-w-sm">{featured.craftsmanship}</p>
                       </div>
                     </div>
-                    
-                    {/* Caption */}
-                    <div className="min-h-[5rem]">
-                      <p className="text-[10px] uppercase tracking-[0.3em] text-primary mb-1.5">{product.category}</p>
-                      <h3 className="font-serif text-xl md:text-[1.35rem] text-foreground transition-colors duration-500 group-hover:text-primary leading-snug line-clamp-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-[9px] uppercase tracking-widest text-foreground/30 mt-2">Available upon inquiry</p>
-                    </div>
-                  </motion.button>
-                ))}
+                  </motion.div>
+                )}
+
+                {/* ── Collection Grid ── */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-14 gap-x-10">
+                  {gallery.map((product) => (
+                    <motion.button
+                      key={product.id}
+                      variants={fadeInUp}
+                      onClick={() => {
+                        onSelectProduct(product);
+                        onOpenChange(false);
+                      }}
+                      className="group text-left flex flex-col focus:outline-none"
+                    >
+                      <div className="relative aspect-[4/5] mb-6 overflow-hidden bg-background shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover image-luxury-grade transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                        />
+                        
+                        {/* Grain & Lighting Overlays */}
+                        <div className="absolute inset-0 z-10 pointer-events-none mix-blend-overlay opacity-[0.008]"
+                          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }}
+                        />
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_65%,rgba(0,0,0,0.08)_100%)] pointer-events-none z-10 opacity-60 group-hover:opacity-85 transition-opacity duration-[800ms]" />
+                        <div className="absolute inset-0 ring-1 ring-inset ring-foreground/5 group-hover:ring-primary/10 transition-all duration-[800ms] pointer-events-none z-10" />
+
+                        {/* Hover reveal overlay */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] z-20">
+                          <span className="text-[9px] uppercase tracking-[0.32em] text-white bg-black/45 backdrop-blur-md px-6 py-2.5 rounded-none border border-white/10">View Piece</span>
+                        </div>
+                      </div>
+                      
+                      {/* Caption with Metadata */}
+                      <div className="min-h-[7rem] flex flex-col">
+                        <p className="text-[10px] uppercase tracking-[0.3em] text-primary mb-2 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[2px]">
+                          {product.category}
+                        </p>
+                        <h3 className="font-serif text-xl md:text-[1.35rem] text-foreground transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[2px] group-hover:text-primary leading-snug line-clamp-2 mb-3">
+                          {product.name}
+                        </h3>
+                        <p className="text-[9px] uppercase tracking-[0.2em] text-foreground/45 mb-2 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[2px]">
+                          {product.karat} <span className="mx-1.5 text-primary/30">|</span> {product.clarity}
+                        </p>
+                        <p className="text-[10px] uppercase tracking-[0.15em] text-foreground/35 leading-[1.6] transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[2px] line-clamp-2 mt-auto">
+                          {product.craftsmanship}
+                        </p>
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+
+                {/* ── Luxury Closing Frame ── */}
+                <motion.div variants={fadeInUp} className="mt-32 pt-20 border-t border-primary/20 text-center pb-8 md:pb-16">
+                  <h4 className="font-serif text-[15px] tracking-[0.22em] uppercase text-foreground mb-4 font-light">Surya Gold <span className="text-primary">&amp;</span> Diamonds</h4>
+                  <p className="text-[9px] uppercase tracking-[0.3em] text-foreground/40 mb-10 font-medium">Crafted in Hyderabad since 1985</p>
+                  <div className="w-16 h-px bg-primary/40 mx-auto mb-10" />
+                  <p className="font-serif italic text-foreground/60 text-[1.1rem] tracking-wide">"Each piece begins in silence and becomes a legacy."</p>
+                </motion.div>
+
               </motion.div>
 
               {products.length === 0 && (

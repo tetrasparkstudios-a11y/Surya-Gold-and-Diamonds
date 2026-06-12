@@ -104,7 +104,7 @@ export function MMTCSection() {
               loading="lazy"
               decoding="async"
               style={{ y: imgY }}
-              className="w-full h-full object-cover transition-transform duration-[2.8s] ease-out group-hover:scale-[1.04]"
+              className="w-full h-full object-cover image-luxury-grade transition-transform duration-[2.8s] ease-out group-hover:scale-[1.04]"
             />
             {/* Warm tonal overlay on image */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(212,163,42,0.02),transparent_55%)] mix-blend-color-dodge pointer-events-none" />

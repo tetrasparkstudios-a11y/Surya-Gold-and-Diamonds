@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Admin from "@/pages/Admin";
-import { LuxuryCursor } from "@/components/ui/LuxuryCursor";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const queryClient = new QueryClient();
@@ -26,8 +25,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {/* Global cursor — persists across all routes */}
-        <LuxuryCursor />
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <Router />
         </WouterRouter>

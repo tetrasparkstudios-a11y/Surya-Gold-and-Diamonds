@@ -53,6 +53,13 @@ export default defineConfig({
     fs: {
       strict: true,
     },
+    proxy: {
+      '/api/resend': {
+        target: 'https://api.resend.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/resend/, ''),
+      },
+    },
   },
   preview: {
     port,
