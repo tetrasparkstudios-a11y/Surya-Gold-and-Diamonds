@@ -13,9 +13,9 @@ import { X } from "lucide-react";
 
 // Standard fade-up — slow, deliberate
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20, filter: "blur(3px)" },
+  hidden: { opacity: 0, y: 20 },
   visible: {
-    opacity: 1, y: 0, filter: "blur(0px)",
+    opacity: 1, y: 0,
     transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
   }
 };
@@ -27,9 +27,9 @@ const stagger: Variants = {
 
 // Editorial reveal — opacity + gentle lift, slower cinematic pacing
 const editorialReveal: Variants = {
-  hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 16 },
   visible: {
-    opacity: 1, y: 0, filter: "blur(0px)",
+    opacity: 1, y: 0,
     transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] }
   }
 };
@@ -39,14 +39,12 @@ const textClipReveal: Variants = {
   hidden: {
     clipPath: "inset(100% 0 0 0)",
     y: 20,
-    opacity: 0,
-    filter: "blur(3px)"
+    opacity: 0
   },
   visible: {
     clipPath: "inset(0% 0 0 0)",
     y: 0,
     opacity: 1,
-    filter: "blur(0px)",
     transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] }
   }
 };
@@ -124,17 +122,8 @@ const imgHoverVariants = {
 };
 
 function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  });
-  const ySmooth = useSpring(scrollYProgress, { stiffness: 45, damping: 25 });
-  const yImage = useTransform(ySmooth, [0, 1], ["-5%", "5%"]);
-
   return (
     <motion.div
-      ref={cardRef}
       variants={{
         hidden: { opacity: 0, y: 24 },
         visible: {
@@ -167,11 +156,10 @@ function ProductCard({ product, isFeature, onClick }: ProductCardProps) {
           src={product.image}
           alt={product.name}
           loading="lazy" decoding="async"
-          style={{ y: yImage }}
           variants={imgHoverVariants}
           initial="rest"
           transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-x-0 -top-[5%] w-full h-[110%] object-cover image-luxury-grade"
+          className="absolute inset-0 w-full h-full object-cover image-luxury-grade"
         />
 
         {/* Near-imperceptible photographic grain overlay */}
