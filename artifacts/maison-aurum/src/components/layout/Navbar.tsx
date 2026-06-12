@@ -34,7 +34,7 @@ export function Navbar() {
             : "bg-transparent py-6 border-b border-transparent"
         }`}
       >
-        <div className="container mx-auto px-5 md:px-8 flex items-center justify-between">
+        <div className="container relative mx-auto px-5 md:px-8 flex items-center justify-between">
 
           {/* Brand mark — transparent logo + text */}
           <Link href="/" className="group flex items-center gap-2">
@@ -46,11 +46,14 @@ export function Navbar() {
               }`}
             />
             <span
-              className={`font-serif text-[14px] md:text-[15.5px] tracking-[0.18em] uppercase hidden sm:block transition-all duration-500 font-normal mt-[2px] ${
+              className={`font-serif text-[13px] md:text-[15.5px] tracking-[0.15em] md:tracking-[0.18em] uppercase transition-all duration-500 font-normal 
+                absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-0
+                md:static md:translate-x-0 md:translate-y-0 md:mt-[2px]
+                ${
                 useSolid
                   ? "text-foreground/90"
                   : "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]"
-              } group-hover:text-primary`}
+              } group-hover:text-primary whitespace-nowrap`}
             >
               SURYA GOLD <span className="text-primary">&amp;</span> DIAMONDS
             </span>

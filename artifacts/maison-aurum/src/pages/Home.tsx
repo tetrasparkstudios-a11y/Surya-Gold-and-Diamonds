@@ -269,12 +269,12 @@ export default function Home() {
         href="https://wa.me/917093335656?text=Hello%20Surya%20Gold%20%26%20Diamonds%2C%20I%27d%20like%20to%20enquire%20about%20a%20piece."
         target="_blank" rel="noopener noreferrer"
         aria-label="Contact on WhatsApp"
-        className="fixed bottom-6 right-6 md:right-8 z-50 w-10 h-10 rounded-full flex items-center justify-center
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-12 h-12 md:w-[52px] md:h-[52px] rounded-full flex items-center justify-center
                    bg-[#FAF7F2] text-primary border border-[#d4a32a]/20 shadow-[0_2px_16px_rgba(0,0,0,0.06)]
                    hover:bg-[#d4a32a] hover:text-white hover:border-[#d4a32a] hover:shadow-[0_4px_24px_rgba(212,163,42,0.2)]
                    transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
       >
-        <FaWhatsapp className="w-[18px] h-[18px]" />
+        <FaWhatsapp className="w-6 h-6 md:w-[26px] md:h-[26px]" />
       </a>
 
       {/* ══════════════════════════════════════
